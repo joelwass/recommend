@@ -1,0 +1,38 @@
+{
+  "name": "recommend",
+  "version": "1.0.0",
+  "description": "a recommendation thing",
+  "main": "index.js",
+  "scripts": {
+    "start": "next start -p 8000",
+    "build": "next build",
+    "dev": "next",
+    "test": "standard",
+    "server": "node server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stripedpajamas/recommend.git"
+  },
+  "author": "Peter Squicciarini <stripedpajamas273@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stripedpajamas/recommend/issues"
+  },
+  "homepage": "https://github.com/stripedpajamas/recommend#readme",
+  "dependencies": {
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "fastify": "^0.42.0",
+    "isomorphic-unfetch": "^2.0.0",
+    "mysql2": "^1.5.1",
+    "next": "^4.2.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "sequelize": "^4.32.2",
+    "ulid": "^2.3.0"
+  },
+  "devDependencies": {
+    "standard": "^10.0.3"
+  }
+}
