@@ -11,8 +11,9 @@ const connection = new Sequelize(database, username, password, {
   host,
   dialect: 'mysql',
   dialectOptions: {
-    ssl: process.env.NODE_ENV === 'production' ? true : false
+    ssl: process.env.NODE_ENV === 'production'
   },
+  operatorsAliases: false,
   logging: process.env.NODE_ENV === 'production' ? false : console.log,
   pool: { max: 5, min: 0, idle: 10000 }
 })
@@ -25,7 +26,7 @@ fs.readdirSync(__dirname).filter(file => {
   db[model.name] = model
 })
 
-Object.keys(db).forEach( modelName => {
+Object.keys(db).forEach((modelName) => {
   if ('associate' in db[modelName]) {
     db[modelName].associate(db)
   }

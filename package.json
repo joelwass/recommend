@@ -6,9 +6,8 @@
   "scripts": {
     "start": "next start -p 8000",
     "build": "next build",
-    "dev": "next",
-    "test": "standard",
-    "server": "node server/index.js"
+    "dev": "node index.js",
+    "test": "standard"
   },
   "repository": {
     "type": "git",
@@ -23,7 +22,6 @@
   "dependencies": {
     "cors": "^2.8.4",
     "express": "^4.16.2",
-    "fastify": "^0.42.0",
     "isomorphic-unfetch": "^2.0.0",
     "mysql2": "^1.5.1",
     "next": "^4.2.3",
