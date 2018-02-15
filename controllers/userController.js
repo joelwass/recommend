@@ -27,7 +27,7 @@ module.exports = {
         else return res.status(200).json({ success: true, message: helper.strings.userCreatedSuccesfully, user: user })
       })
       .catch(err => {
-        return res.status(500).json({ success: false, message: helper.strings.anErrorHappened, error: err.message })
+        helper.methods.handleErrors(err, res)
       })
   },
   updateUser: (req, res) => {
@@ -42,7 +42,7 @@ module.exports = {
     sqlModels.User.findOne({ where: { email: params.email }})
       .then(user => {
         // check if a user was returned
-        if (!user) return res.status(200).json({ success: false, message: helper.strings.noUserExistingByThatEmail })
+        if (!user) throw new helper.CustomError(helper.strings.noUserExistingByThatEmail)
         // update the user properties
         Object.keys(params).forEach(updatedProperty => {
           user[updatedProperty] = params[updatedProperty]
@@ -58,7 +58,7 @@ module.exports = {
         return res.status(200).json({ success: true, message: helper.strings.userUpdatedSuccesfully, user: returnUser })
       })
       .catch(err => {
-        return res.status(500).json({ success: false, message: helper.strings.anErrorHappened, error: err.message })
+        helper.methods.handleErrors(err, res)
       })
   },
   getUsers: (req, res) => {
@@ -75,7 +75,7 @@ module.exports = {
         return res.status(200).json({ success: true, users: returnUsers })
       })
       .catch(err => {
-        return res.status(500).json({ success: false, message: helper.strings.anErrorHappened, error: err.message })
+        helper.methods.handleErrors(err, res)
       })
   },
   getUser: (req, res) => {
@@ -90,7 +90,7 @@ module.exports = {
         return res.status(200).json({ success: true, user: returnUser })
       })
       .catch(err => {
-        return res.status(500).json({ success: false, message: helper.strings.anErrorHappened, error: err.message })
+        helper.methods.handleErrors(err, res)
       })
   },
   deleteUser: (req, res) => {
@@ -104,7 +104,7 @@ module.exports = {
         return res.status(200).json({ success: true, message: helper.strings.userSuccessfullyDeleted })
       })
       .catch(err => {
-        return res.status(500).json({ success: false, message: helper.strings.anErrorHappened, error: err.message })
+        helper.methods.handleErrors(err, res)
       })
   }
 }
