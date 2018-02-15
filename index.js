@@ -39,7 +39,7 @@ sqlModel.sequelize.sync()
       console.log('> Ready on http://localhost:3000')
     })
   })
-  .catch((ex) => {
-    console.error(ex.stack)
+  .catch((err) => {
+    console.error(err.stack)
     process.exit(1)
   })

@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt')
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     id: {
@@ -60,6 +62,27 @@ module.exports = (sequelize, DataTypes) => {
         fields: ['id']
       }
     ]
+  })
+
+  User.beforeCreate( (user, options, next) => {
+    bcrypt.hash(user.password, 10,  function (err, encryptedPassword) {
+      if (err) return next(err)
+      user.password = encryptedPassword
+      return next()
+    })
+  })
+
+  User.beforeUpdate( (user, options, next) => {
+
+    if (!user.changed('password')) {
+      return next()
+    }
+
+    bcrypt.hash(user.password, 10, function (err, encryptedPassword) {
+      if (err) return next(err)
+      user.password = encryptedPassword
+      next()
+    })
   })
 
   return User
