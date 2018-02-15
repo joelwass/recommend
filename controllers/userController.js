@@ -17,7 +17,7 @@ module.exports = {
     return sqlModels.User.findOrCreate({ where: { email: params.email }, defaults: params })
       .then(result => {
         const didCreateNewUser = result[1]
-        const user = result[0]
+        const user = result[0].toJSON()
 
         // delete the password so we're not sending it to the client
         delete user.password
@@ -50,10 +50,12 @@ module.exports = {
         return user.save()
       })
       .then(updatedUser => {
-        // delete the password so we're not sending it to the client
-        delete updatedUser.password
+        const returnUser = updatedUser.toJSON()
 
-        return res.status(200).json({ success: true, message: helper.strings.userUpdatedSuccesfully, user: updatedUser })
+        // delete the password so we're not sending it to the client
+        delete returnUser.password
+
+        return res.status(200).json({ success: true, message: helper.strings.userUpdatedSuccesfully, user: returnUser })
       })
       .catch(e => {
         return res.status(500).json({ success: false, message: helper.strings.anErrorHappened })
