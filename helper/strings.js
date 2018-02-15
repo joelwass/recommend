@@ -8,5 +8,11 @@ module.exports = {
   userAlreadyExists: 'A user already exists with this email',
   userCreatedSuccesfully: 'New user created succesfully',
   noUserExistingByThatEmail: 'No user exists by that email',
-  userUpdatedSuccesfully: 'The user was updated succesfully'
+  userUpdatedSuccesfully: 'The user was updated succesfully',
+  userSuccessfullyDeleted: 'The user was succesfully deleted',
+
+  // recommendation
+  noFromUserByThatId: 'Invalid id for a recommendation to be made from',
+  noToUserByThatId: 'You can\'t make a recommendation for a user by that id',
+  recommendationCreatedSuccesfully: 'Recommendation was created succesfully'
 }

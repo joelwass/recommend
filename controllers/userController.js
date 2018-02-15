@@ -32,7 +32,7 @@ module.exports = {
   },
   updateUser: (req, res) => {
     // validate params, email is required but all else are optional
-    const params = pluck(['email', 'password', 'firstName', 'lastName', 'birthday', 'recommendationsGiven', 'recommendationsReceived', 'recommendationsGivenCorrect', 'recommendationsReceivedCorrect'], req.body).end()
+    const params = pluck(['email', 'password', 'firstName', 'lastName', 'birthday', 'recommendationsGiven', 'recommendationsReceived', 'recommendationsGivenCorrect', 'recommendationsReceivedCorrect', 'meta'], req.body).end()
     if (!params.email) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
     // convert birthday
@@ -88,6 +88,20 @@ module.exports = {
         const returnUser = user.toJSON()
         delete returnUser.password
         return res.status(200).json({ success: true, user: returnUser })
+      })
+      .catch(err => {
+        return res.status(500).json({ success: false, message: helper.strings.anErrorHappened, error: err.message })
+      })
+  },
+  deleteUser: (req, res) => {
+    // validate params, must have an email passed in
+    const params = pluck(['email'], req.params).end()
+    if (!params.email) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
+
+    sqlModels.User.findOne({ where: { email: params.email }})
+      .then(user => user.destroy())
+      .then(() => {
+        return res.status(200).json({ success: true, message: helper.strings.userSuccessfullyDeleted })
       })
       .catch(err => {
         return res.status(500).json({ success: false, message: helper.strings.anErrorHappened, error: err.message })
