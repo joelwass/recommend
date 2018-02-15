@@ -4,7 +4,7 @@ const helper = require('../helper')
 
 module.exports = {
   createUser: (req, res) => {
-    // validate params
+    // validate params, all required fields
     const params = pluck(['email', 'password', 'firstName', 'lastName', 'birthday'], req.body).end()
     if (Object.keys(params).length != 5) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
@@ -26,12 +26,12 @@ module.exports = {
         if (!didCreateNewUser) return res.status(200).json({ success: false, message: helper.strings.userAlreadyExists, user: user })
         else return res.status(200).json({ success: true, message: helper.strings.userCreatedSuccesfully, user: user })
       })
-      .catch(e => {
-        return res.status(500).json({ success: false, message: helper.strings.anErrorHappened })
+      .catch(err => {
+        return res.status(500).json({ success: false, message: helper.strings.anErrorHappened, error: err.message })
       })
   },
   updateUser: (req, res) => {
-    // validate params
+    // validate params, email is required but all else are optional
     const params = pluck(['email', 'password', 'firstName', 'lastName', 'birthday', 'recommendationsGiven', 'recommendationsReceived', 'recommendationsGivenCorrect', 'recommendationsReceivedCorrect'], req.body).end()
     if (!params.email) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
@@ -57,14 +57,41 @@ module.exports = {
 
         return res.status(200).json({ success: true, message: helper.strings.userUpdatedSuccesfully, user: returnUser })
       })
-      .catch(e => {
-        return res.status(500).json({ success: false, message: helper.strings.anErrorHappened })
+      .catch(err => {
+        return res.status(500).json({ success: false, message: helper.strings.anErrorHappened, error: err.message })
       })
   },
   getUsers: (req, res) => {
+    sqlModels.User.findAll()
+      .then(users => {
 
+        // iterate over all users and remove password field
+        const returnUsers = users.map(user => {
+          let jsonUser = user.toJSON()
+          delete jsonUser.password
+          return jsonUser
+        })
+
+        return res.status(200).json({ success: true, users: returnUsers })
+      })
+      .catch(err => {
+        console.log(err)
+        return res.status(500).json({ success: false, message: helper.strings.anErrorHappened, error: err.message })
+      })
   },
   getUser: (req, res) => {
+    // validate params, must have email in the query string
+    const params = pluck(['email'], req.params).end()
+    if (!params.email) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
+    sqlModels.User.findOne({ where: { email: params.email }})
+      .then(user => {
+        const returnUser = user.toJSON()
+        delete returnUser.password
+        return res.status(200).json({ success: true, user: returnUser })
+      })
+      .catch(err => {
+        return res.status(500).json({ success: false, message: helper.strings.anErrorHappened, error: err.message })
+      })
   }
 }

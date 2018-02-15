@@ -6,7 +6,7 @@ router.get('/health', (req, res) => {
   res.status(200).json({ alive: true })
 })
 
-router.route('/user')
+router.route('/user/:email?')
   .post(controllers.userController.createUser)
   .get(controllers.userController.getUser)
   .put(controllers.userController.updateUser)
