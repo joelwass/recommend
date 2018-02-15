@@ -75,7 +75,6 @@ module.exports = {
         return res.status(200).json({ success: true, users: returnUsers })
       })
       .catch(err => {
-        console.log(err)
         return res.status(500).json({ success: false, message: helper.strings.anErrorHappened, error: err.message })
       })
   },
