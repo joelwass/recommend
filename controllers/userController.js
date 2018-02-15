@@ -6,10 +6,10 @@ module.exports = {
   createUser: (req, res) => {
     // validate params
     const params = pluck(['email', 'password', 'firstName', 'lastName', 'birthday'], req.body).end()
-    if (params.length != 5) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
+    if (Object.keys(params).length != 5) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
     // convert time stamp
-    params.birthday = new Date(params.birthday)
+    params.birthday = new Date(parseInt(params.birthday)).toISOString()
 
     // validate password length
     if (params.password.length < 5) return res.status(200).json({ success: false, message: helper.strings.invalidPasswordParameter })
@@ -28,11 +28,11 @@ module.exports = {
   },
   updateUser: (req, res) => {
     // validate params
-    const params = pluck(['email', 'password', 'firstName', 'lastName', 'birthday', 'recommendationsGiven', 'recommendationsReceived', 'recommendationsGivenCorrect', 'recommendationsReceivedCorrect'])
-    if (!params.email) return res.status(500).json({ success: false, message: helper.strings.invalidParameters })
+    const params = pluck(['email', 'password', 'firstName', 'lastName', 'birthday', 'recommendationsGiven', 'recommendationsReceived', 'recommendationsGivenCorrect', 'recommendationsReceivedCorrect'], req.body).end()
+    if (!params.email) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
     // convert birthday
-    if (params.birthday) params.birthday = new Date(params.birthday)
+    if (params.birthday) params.birthday = new Date(parseInt(params.birthday)).toISOString()
 
     // find the user by the email
     sqlModels.User.findOne({ where: { email: params.email }})

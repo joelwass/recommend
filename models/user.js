@@ -61,28 +61,29 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         fields: ['id']
       }
-    ]
-  })
+    ],
+    hooks: {
+      beforeCreate : (user, options) => {
+        bcrypt.hash(user.password, 10,  function (err, encryptedPassword) {
+          if (err) {
+            // need to log the error
+          }
+          user.password = encryptedPassword
+        })
+      },
+      beforeUpdate: (user, options) => {
+        if (!user.changed('password')) {
+          return
+        }
 
-  User.beforeCreate( (user, options, next) => {
-    bcrypt.hash(user.password, 10,  function (err, encryptedPassword) {
-      if (err) return next(err)
-      user.password = encryptedPassword
-      return next()
-    })
-  })
-
-  User.beforeUpdate( (user, options, next) => {
-
-    if (!user.changed('password')) {
-      return next()
+        bcrypt.hash(user.password, 10, function (err, encryptedPassword) {
+          if (err) {
+            // need to log the error and exit the update
+          }
+          user.password = encryptedPassword
+        })
+      }
     }
-
-    bcrypt.hash(user.password, 10, function (err, encryptedPassword) {
-      if (err) return next(err)
-      user.password = encryptedPassword
-      next()
-    })
   })
 
   return User
