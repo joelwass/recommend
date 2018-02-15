@@ -18,6 +18,10 @@ module.exports = {
       .then(result => {
         const didCreateNewUser = result[1]
         const user = result[0]
+
+        // delete the password so we're not sending it to the client
+        delete user.password
+
         // if the user wasn't created new, this will return the old, found user with matching email address
         if (!didCreateNewUser) return res.status(200).json({ success: false, message: helper.strings.userAlreadyExists, user: user })
         else return res.status(200).json({ success: true, message: helper.strings.userCreatedSuccesfully, user: user })
@@ -46,6 +50,9 @@ module.exports = {
         return user.save()
       })
       .then(updatedUser => {
+        // delete the password so we're not sending it to the client
+        delete updatedUser.password
+
         return res.status(200).json({ success: true, message: helper.strings.userUpdatedSuccesfully, user: updatedUser })
       })
       .catch(e => {

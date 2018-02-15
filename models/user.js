@@ -64,24 +64,26 @@ module.exports = (sequelize, DataTypes) => {
     ],
     hooks: {
       beforeCreate : (user, options) => {
-        bcrypt.hash(user.password, 10,  function (err, encryptedPassword) {
-          if (err) {
-            // need to log the error
-          }
-          user.password = encryptedPassword
-        })
+        return bcrypt.hash(user.password, 10)
+          .then(encryptedPassword => {
+            user.password = encryptedPassword
+          })
+          .catch(err => {
+            console.log(err)
+          })
       },
       beforeUpdate: (user, options) => {
         if (!user.changed('password')) {
           return
         }
 
-        bcrypt.hash(user.password, 10, function (err, encryptedPassword) {
-          if (err) {
-            // need to log the error and exit the update
-          }
-          user.password = encryptedPassword
-        })
+        return bcrypt.hash(user.password, 10)
+          .then(encryptedPassword => {
+            user.password = encryptedPassword
+          })
+          .catch(err => {
+            console.log(err)
+          })
       }
     }
   })
