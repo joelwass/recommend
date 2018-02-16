@@ -6,13 +6,13 @@ const helper = require('../helper')
 module.exports = {
   createRecommendation: (req, res) => {
     // validate params, required: [subject, prediction, to_user]
-    const params = pluck(['subject', 'prediction', 'to_user'], req.body).end()
-    if (Object.keys(params).length !== 3) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
+    const params = pluck(['subject', 'prediction', 'to_user', 'from_user'], req.body).end()
+    if (Object.keys(params).length !== 4) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
-    // validate that the from user exists
+    // validate that the from user exists and is the same as the from_user
     sqlModels.User.findOne({ where: { id: req.currentUserId }})
       .then(user => {
-        if (!user) throw new helper.CustomError(helper.strings.noFromUserByThatId)
+        if (!user || user.id !== params.from_user) throw new helper.CustomError(helper.strings.noFromUserByThatId)
 
         // now find the to user and make sure it exists
         return sqlModels.User.findOne({ where: { id: params.to_user }})
