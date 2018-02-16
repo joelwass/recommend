@@ -19,5 +19,11 @@ module.exports = {
   recommendationUpdatedSuccesfully: 'The recommendation was updated successfully',
   recommendationSuccesfullyDeleted: 'The recommendation was succesfully deleted',
   noRecommendationForThatUserId: 'No recommendation exists for that user id',
-  noRecommendationFromThatUserId: 'No recommendation exists from that user id'
+  noRecommendationFromThatUserId: 'No recommendation exists from that user id',
+
+  // auth
+  sorryWeCantFindEmail: 'We couldn\'t find a user by that email',
+  passwordInvalid: 'Password was invalid for login attempt',
+  unauthorizedRequest: 'Invalid auth token sent down',
+  expiredSessionId: 'Auth token has expired'
 }

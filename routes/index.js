@@ -2,27 +2,30 @@ const express = require('express')
 const router = express.Router()
 const controllers = require('../controllers')
 
-router.get('/health', (req, res) => {
-  res.status(200).json({ alive: true })
-})
+// health
+router.get('/health', (req, res) => res.status(200).json({ alive: true }))
+
+// auth
+router.post('/user/login', controllers.authController.loginUser)
+router.post('/user/logout', controllers.authController.authenticateSessionId, controllers.authController.logoutUser)
 
 // user routes
 router.route('/user/:email?')
   .post(controllers.userController.createUser)
-  .get(controllers.userController.getUser)
-  .put(controllers.userController.updateUser)
-  .delete(controllers.userController.deleteUser)
+  .get(controllers.authController.authenticateSessionId, controllers.userController.getUser)
+  .put(controllers.authController.authenticateSessionId, controllers.userController.updateUser)
+  .delete(controllers.authController.authenticateSessionId, controllers.userController.deleteUser)
 
-router.get('/users', controllers.userController.getUsers)
+router.get('/users', controllers.authController.authenticateSessionId, controllers.userController.getUsers)
 
 // recommendation routes
 router.route('/recommendation/:id?')
-  .post(controllers.recommendationController.createRecommendation)
-  .get(controllers.recommendationController.getRecommendation)
-  .put(controllers.recommendationController.updateRecommendation)
-  .delete(controllers.recommendationController.deleteRecommendation)
+  .post(controllers.authController.authenticateSessionId, controllers.recommendationController.createRecommendation)
+  .get(controllers.authController.authenticateSessionId, controllers.recommendationController.getRecommendation)
+  .put(controllers.authController.authenticateSessionId, controllers.recommendationController.updateRecommendation)
+  .delete(controllers.authController.authenticateSessionId, controllers.recommendationController.deleteRecommendation)
 
-router.get('/recommendation/for/:userId', controllers.recommendationController.getRecommendationsForUser)
-router.get('/recommendation/from/:userId', controllers.recommendationController.getRecommendationsFromUser)
+router.get('/recommendation/for/:userId', controllers.authController.authenticateSessionId, controllers.recommendationController.getRecommendationsForUser)
+router.get('/recommendation/from/:userId', controllers.authController.authenticateSessionId, controllers.recommendationController.getRecommendationsFromUser)
 
 module.exports = router

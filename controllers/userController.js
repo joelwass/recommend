@@ -39,7 +39,7 @@ module.exports = {
     if (params.birthday) params.birthday = new Date(parseInt(params.birthday)).toISOString()
 
     // find the user by the email
-    sqlModels.User.findOne({ where: { email: params.email }})
+    sqlModels.User.findOne({ where: { id: req.currentUserId }})
       .then(user => {
         // check if a user was returned
         if (!user) throw new helper.CustomError(helper.strings.noUserExistingByThatEmail)
