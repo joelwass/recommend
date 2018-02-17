@@ -63,24 +63,6 @@ module.exports = (sequelize, DataTypes) => {
         fields: ['id']
       }
     ],
-    classMethods: {
-      authenticate: body => {
-        let user
-        return User.findOne({ where: { email: body.email } })
-          .then(localUser => {
-            if (!localUser) return Promise.reject(new helper.CustomError(helper.strings.sorryWeCantFindEmail))
-            user = localUser
-            return bcrypt.compareAsync(body.password, user.password)
-          })
-          .then(result => {
-            if (!result) return Promise.reject(new helper.CustomError(helper.strings.passwordInvalid))
-            return Promise.resolve(user)
-          })
-          .catch(err => {
-            return Promise.reject(err)
-          })
-      }
-    },
     hooks: {
       beforeCreate: (user, options) => {
         return bcrypt.hash(user.password, 10)
@@ -106,6 +88,23 @@ module.exports = (sequelize, DataTypes) => {
       }
     }
   })
+
+  User.authenticate = body => {
+    let user
+    return User.findOne({ where: { email: body.email } })
+      .then(localUser => {
+        if (!localUser) return Promise.reject(new helper.CustomError(helper.strings.sorryWeCantFindEmail))
+        user = localUser
+        return bcrypt.compare(body.password, user.password)
+      })
+      .then(result => {
+        if (!result) return Promise.reject(new helper.CustomError(helper.strings.passwordInvalid))
+        return Promise.resolve(user)
+      })
+      .catch(err => {
+        return Promise.reject(err)
+      })
+  }
 
   return User
 }
