@@ -29,7 +29,7 @@ sqlModel.sequelize.sync()
     // error handler
     server.use((err, req, res, next) => {
       if (dev) {
-        return res.status(err.status || 500).json({ message: err.message })
+        return res.status(err.status || 500).json({ message: err.message, stack: err.stack })
       }
       return res.status(500)
     })

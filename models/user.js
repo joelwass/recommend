@@ -88,7 +88,7 @@ module.exports = (sequelize, DataTypes) => {
             user.password = encryptedPassword
           })
           .catch(err => {
-            console.log(err)
+            return Promise.reject(err)
           })
       },
       beforeUpdate: (user, options) => {
@@ -101,7 +101,7 @@ module.exports = (sequelize, DataTypes) => {
             user.password = encryptedPassword
           })
           .catch(err => {
-            console.log(err)
+            return Promise.reject(err)
           })
       }
     }
