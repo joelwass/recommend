@@ -67,14 +67,13 @@ module.exports = (sequelize, DataTypes) => {
       afterUpdate: (recommendation, options) => {
         // figure out of the recommendation was correct or not
         const correctRecommendation = recommendation.prediction === recommendation.result
-
         // find the to_user and update the to_users recommendationsReceivedCorrect field and the from_users recomendation correct field
-        sqlModels.User.findOne({ where: { id: recommendation.to_user } })
+        sequelize.models.User.findOne({ where: { id: recommendation.to_user } })
           .then(user => {
             if (correctRecommendation) user.recommendationsReceivedCorrect++
             return user.save()
           })
-          .then(() => sqlModels.User.findOne({ where: { id: recommendation.from_user } }))
+          .then(() => sequelize.models.User.findOne({ where: { id: recommendation.from_user } }))
           .then(user => {
             if (correctRecommendation) user.recommendationsGivenCorrect++
             return user.save()
@@ -85,12 +84,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       beforeCreate: (recommendation, options) => {
         // update the from_users recommendations_given field and the to_users recommendations received field
-        sqlModels.User.findOne({ where: { id: recommendation.to_user } })
+        sequelize.models.User.findOne({ where: { id: recommendation.to_user } })
           .then(user => {
             user.recommendationsReceived++
             return user.save()
           })
-          .then(() => sqlModels.User.findOne({ where: { id: recommendation.from_user } }))
+          .then(() => sequelize.models.User.findOne({ where: { id: recommendation.from_user } }))
           .then(user => {
             user.recommendationsGiven++
             return user.save()
