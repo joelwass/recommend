@@ -16,7 +16,6 @@ const twoHoursInMilliseconds = 7200000
 
 */
 
-
 module.exports = {
   authenticateSessionId: (req, res, next) => {
     // make sure we have a sessionId in the header
@@ -47,7 +46,7 @@ module.exports = {
     sqlModels.User.authenticate(params)
       .then(authenticatedUser => {
         // we know the user authenticated correctly if they make it into this block
-        const sessionId = new ulid()
+        const sessionId = ulid()
         // declare users session
         redis[sessionId] = {
           userId: authenticatedUser.id,

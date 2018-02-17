@@ -10,12 +10,12 @@ module.exports = {
     if (Object.keys(params).length !== 4) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
     // validate that the from user exists and is the same as the from_user
-    sqlModels.User.findOne({ where: { id: req.currentUserId }})
+    sqlModels.User.findOne({ where: { id: req.currentUserId } })
       .then(user => {
         if (!user || user.id !== params.from_user) throw new helper.CustomError(helper.strings.noFromUserByThatId)
 
         // now find the to user and make sure it exists
-        return sqlModels.User.findOne({ where: { id: params.to_user }})
+        return sqlModels.User.findOne({ where: { id: params.to_user } })
       })
       .then(user => {
         if (!user) throw new helper.CustomError(helper.strings.noToUserByThatId)
@@ -39,7 +39,7 @@ module.exports = {
     const params = pluck(['public_id', 'result'], req.body).end()
     if (Object.keys(params).length !== 2) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
-    sqlModels.Recommendation.findOne({ where: { public_id: params.public_id }})
+    sqlModels.Recommendation.findOne({ where: { public_id: params.public_id } })
       .then(recommendation => {
         if (!recommendation) {
           throw new helper.CustomError(helper.strings.noRecommendationForThatId)
@@ -62,7 +62,7 @@ module.exports = {
     const params = pluck(['public_id'], req.params).end()
     if (!params.id) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
-    sqlModels.Recommendation.findOne({ where: { public_id: params.public_id }})
+    sqlModels.Recommendation.findOne({ where: { public_id: params.public_id } })
       .then(localRecommendation => {
         if (!localRecommendation) throw new helper.CustomError(helper.strings.noRecommendationForThatId)
         return res.status(200).json({ success: true, recommendation: localRecommendation.toJSON() })
@@ -76,7 +76,7 @@ module.exports = {
     const params = pluck(['id'], req.params).end()
     if (!params.id) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
-    sqlModels.Recommendation.findOne({ where: { id: params.id }})
+    sqlModels.Recommendation.findOne({ where: { id: params.id } })
       .then(localRecommendation => {
         if (!localRecommendation) throw new helper.CustomError(helper.strings.noRecommendationForThatId)
         return localRecommendation.destroy()
@@ -94,7 +94,7 @@ module.exports = {
     console.log(params)
     if (!params.userId) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
-    sqlModels.Recommendation.findAll({ where: { to_user: params.userId }})
+    sqlModels.Recommendation.findAll({ where: { to_user: params.userId } })
       .then(localRecommendations => {
         if (!localRecommendations.length) throw new helper.CustomError(helper.strings.noRecommendationForThatUserId)
         return res.status(200).json({ success: true, recommendations: localRecommendations })
@@ -108,7 +108,7 @@ module.exports = {
     const params = pluck(['userId'], req.params).end()
     if (!params.userId) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
-    sqlModels.Recommendation.findAll({ where: { from_user: params.userId }})
+    sqlModels.Recommendation.findAll({ where: { from_user: params.userId } })
       .then(localRecommendations => {
         if (!localRecommendations.length) throw new helper.CustomError(helper.strings.noRecommendationFromThatUserId)
         return res.status(200).json({ success: true, recommendations: localRecommendations })

@@ -19,7 +19,7 @@ class Index extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setAuthenticated: bindActionCreators(setAuthenticated, dispatch),
+    setAuthenticated: bindActionCreators(setAuthenticated, dispatch)
   }
 }
 

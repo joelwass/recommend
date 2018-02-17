@@ -66,23 +66,23 @@ module.exports = (sequelize, DataTypes) => {
     classMethods: {
       authenticate: body => {
         let user
-        return User.findOne({ where: { email: body.email }})
-          .then( localUser => {
+        return User.findOne({ where: { email: body.email } })
+          .then(localUser => {
             if (!localUser) return Promise.reject(new helper.CustomError(helper.strings.sorryWeCantFindEmail))
             user = localUser
             return bcrypt.compareAsync(body.password, user.password)
           })
-          .then( result => {
+          .then(result => {
             if (!result) return Promise.reject(new helper.CustomError(helper.strings.passwordInvalid))
             return Promise.resolve(user)
           })
-          .catch( err => {
-            return Promise.reject(err);
-          });
-      },
+          .catch(err => {
+            return Promise.reject(err)
+          })
+      }
     },
     hooks: {
-      beforeCreate : (user, options) => {
+      beforeCreate: (user, options) => {
         return bcrypt.hash(user.password, 10)
           .then(encryptedPassword => {
             user.password = encryptedPassword

@@ -6,7 +6,7 @@ module.exports = {
   createUser: (req, res) => {
     // validate params, all required fields
     const params = pluck(['email', 'password', 'firstName', 'lastName', 'birthday'], req.body).end()
-    if (Object.keys(params).length != 5) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
+    if (Object.keys(params).length !== 5) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
     // convert time stamp
     params.birthday = new Date(parseInt(params.birthday)).toISOString()
@@ -39,7 +39,7 @@ module.exports = {
     if (params.birthday) params.birthday = new Date(parseInt(params.birthday)).toISOString()
 
     // find the user by the email
-    sqlModels.User.findOne({ where: { id: req.currentUserId }})
+    sqlModels.User.findOne({ where: { id: req.currentUserId } })
       .then(user => {
         // check if a user was returned
         if (!user) throw new helper.CustomError(helper.strings.noUserExistingByThatEmail)
@@ -64,7 +64,6 @@ module.exports = {
   getUsers: (req, res) => {
     sqlModels.User.findAll()
       .then(users => {
-
         // iterate over all users and remove password field
         const returnUsers = users.map(user => {
           let jsonUser = user.toJSON()
@@ -83,7 +82,7 @@ module.exports = {
     const params = pluck(['email'], req.params).end()
     if (!params.email) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
-    sqlModels.User.findOne({ where: { email: params.email }})
+    sqlModels.User.findOne({ where: { email: params.email } })
       .then(user => {
         const returnUser = user.toJSON()
         delete returnUser.password
@@ -98,7 +97,7 @@ module.exports = {
     const params = pluck(['email'], req.params).end()
     if (!params.email) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
-    sqlModels.User.findOne({ where: { email: params.email }})
+    sqlModels.User.findOne({ where: { email: params.email } })
       .then(user => user.destroy())
       .then(() => {
         return res.status(200).json({ success: true, message: helper.strings.userSuccessfullyDeleted })
