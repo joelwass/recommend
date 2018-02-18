@@ -1,5 +1,3 @@
-const sqlModels = require('../models')
-
 module.exports = (sequelize, DataTypes) => {
   const Recomendation = sequelize.define('Recommendation', {
     id: {
