@@ -34,7 +34,7 @@ class Login extends React.Component {
         <button onClick={() => this.props.login({ email: this.state.email, password: this.state.password })}>log me in</button>
         <Link href='/'><a>back to index page</a></Link><br/>
         <p>Don't have an account yet?</p>
-        <Link href='/createAccount'><a>create one</a></Link>
+        <Link href='/register'><a>create one</a></Link>
       </div>
     )
   }
