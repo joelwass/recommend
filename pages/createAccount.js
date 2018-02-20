@@ -24,8 +24,9 @@ class CreateAccount extends React.Component {
     this.setState({ details: Object.assign(this.state.details, { [key]: e.target.value }) })
   }
 
-  handleBirthdayInput = (e, key) => {
-    this.setState({ details: Object.assign(this.state.details, { birthday: e.target.value }) })
+  handleBirthdayInput = (e) => {
+    const date = new Date(e.target.value)
+    this.setState({ details: Object.assign(this.state.details, { birthday: date.getTime() }) })
   }
 
   // validate the users inputted details
@@ -38,8 +39,10 @@ class CreateAccount extends React.Component {
         valid = false
       }
     })
-    if (valid) this.setState({ isValid: true })
-    console.log(this.state)
+    if (valid) {
+      this.setState({ isValid: true })
+      this.props.createAccount(this.state.details)
+    }
   }
 
   render() {
@@ -83,6 +86,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
+    error: state.ui.errorMessage,
+    userId: state.user.id
   }
 }
 

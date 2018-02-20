@@ -12,7 +12,7 @@ export const logoutUser = () => (dispatch) => {
 
 export const createAccount = (accountDetails) => (dispatch) => {
   dispatch({ type: actionTypes.SET_LOADING, ui: { isLoading: true } })
-  API.createNewUser(credentials).then((res) => {
+  API.createNewUser(accountDetails).then((res) => {
     if (res.success) dispatch({ type: actionTypes.CREATE_ACCOUNT, res })
     else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.message })
   })
@@ -21,7 +21,8 @@ export const createAccount = (accountDetails) => (dispatch) => {
 export const login = (credentials) => (dispatch) => {
   dispatch({ type: actionTypes.SET_LOADING, ui: { isLoading: true } })
   API.login(credentials).then((res) => {
-    dispatch(setUser(res))
+    if (res.success) dispatch(setUser(res))
+    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.message })
   })
 }
 

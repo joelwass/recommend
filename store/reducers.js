@@ -8,7 +8,8 @@ const userInitialState = {
 }
 
 const uiInitialState = {
-  isLoading: false
+  isLoading: false,
+  errorMessage: ''
 }
 
 // USER REDUCER
@@ -19,7 +20,7 @@ export const user = (state = userInitialState, action) => {
     case actionTypes.LOGOUT_USER:
       return Object.assign({}, state, { sessionId: '', user: {}, authenticated: false })
     case actionTypes.CREATE_ACCOUNT:
-      return Object.assing({}, state, { sessionId: action.sessionId, user: action.user, authenticated: true })
+      return Object.assign({}, state, { sessionId: action.sessionId, user: action.user, authenticated: true })
     default:
       return state
   }

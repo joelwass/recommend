@@ -9,7 +9,7 @@ class Login extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: '',
+      email: '',
       password: ''
     }
   }
@@ -23,15 +23,15 @@ class Login extends React.Component {
       <div>
         <h1>now on the login page.</h1>
         <p>am i authenticated? {this.props.authenticated ? 'yes' : 'no'}</p>
-        <p>username</p>
+        <p>Email</p>
         <input
           type="text"
-          onChange={(e) => this.handleLoginInput(e, 'username')}/>
-        <p>password</p>
+          onChange={(e) => this.handleLoginInput(e, 'email')}/>
+        <p>Password</p>
         <input
           type="text"
           onChange={(e) => this.handleLoginInput(e, 'password')}/>
-        <button onClick={() => this.props.login({ username: this.state.username, password: this.state.password })}>log me in</button>
+        <button onClick={() => this.props.login({ email: this.state.email, password: this.state.password })}>log me in</button>
         <Link href='/'><a>back to index page</a></Link><br/>
         <p>Don't have an account yet?</p>
         <Link href='/createAccount'><a>create one</a></Link>
