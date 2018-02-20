@@ -14,6 +14,7 @@ export const createAccount = (accountDetails) => (dispatch) => {
   dispatch({ type: actionTypes.SET_LOADING, ui: { isLoading: true } })
   API.createNewUser(credentials).then((res) => {
     if (res.success) dispatch({ type: actionTypes.CREATE_ACCOUNT, res })
+    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.message })
   })
 }
 

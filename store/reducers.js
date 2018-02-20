@@ -29,6 +29,8 @@ export const ui = (state = uiInitialState, action) => {
   switch (action.type) {
     case actionTypes.SET_LOADING:
       return Object.assign({}, state, { isLoading: action.isLoading })
+    case actionTypes.SET_ERROR:
+      return Object.assign({}, state, { errorMessage: action.errorMessage })
     default:
       return state
   }
