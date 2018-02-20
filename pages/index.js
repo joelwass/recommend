@@ -11,7 +11,8 @@ class Index extends React.Component {
       <div>
         <h1>I am currently {!this.props.authenticated && 'not'} authenticated</h1>
         <button onClick={() => this.props.setAuthenticated(true)}>Authenticate</button>
-        <Link href='/logout'><a>Go to logout page</a></Link>
+        <Link href='/logout'><a>Go to logout page</a></Link><br/>
+        <Link href='/login'><a>Login</a></Link>
       </div>
     )
   }

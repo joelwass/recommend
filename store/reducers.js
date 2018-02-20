@@ -14,12 +14,12 @@ const uiInitialState = {
 // USER REDUCER
 export const user = (state = userInitialState, action) => {
   switch (action.type) {
-    case actionTypes.SET_AUTHENTICATED:
-      return Object.assign({}, state, { authenticated: action.authenticated })
-    case actionTypes.SET_SESSION_ID:
-      return Object.assign({}, state, { sessionId: action.sessionId })
     case actionTypes.SET_USER:
-      return Object.assign({}, state, { user: action.user })
+      return Object.assign({}, state, { sessionId: action.sessionId, user: action.user, authenticated: true })
+    case actionTypes.LOGOUT_USER:
+      return Object.assign({}, state, { sessionId: '', user: {}, authenticated: false })
+    case actionTypes.CREATE_ACCOUNT:
+      return Object.assing({}, state, { sessionId: action.sessionId, user: action.user, authenticated: true })
     default:
       return state
   }

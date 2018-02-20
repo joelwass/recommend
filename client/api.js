@@ -1,13 +1,10 @@
 const fetch = require('node-fetch')
-const endpoint = process.env.NODE_ENV === 'production' ? '' : 'localhost:3000/api/v1'
+const endpoint = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000/api/v1'
 
 module.exports = {
   login: (body) => {
-    fetch(`${endpoint}/user/login`, { method: 'POST', body, headers })
+    return fetch(`${endpoint}/user/login`, { method: 'POST', body })
       .then(res => res.json())
-      .then(res => {
-        console.log(res)
-      })
       .catch(err => {
         console.log(err)
       })
@@ -15,9 +12,6 @@ module.exports = {
   logout: (body) => {
     fetch(`${endpoint}/user/logout`, { method: 'POST', body, headers })
       .then(res => res.json())
-      .then(res => {
-        console.log(res)
-      })
       .catch(err => {
         console.log(err)
       })

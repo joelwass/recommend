@@ -1,15 +1,31 @@
 import * as actionTypes from './actionTypes'
+import { API } from '../client'
 
 // ACTIONS
-export const setAuthenticated = (authenticated) => (dispatch) => {
-  return dispatch({ type: actionTypes.SET_AUTHENTICATED, authenticated })
+export const setUser = (user) => (dispatch) => {
+  return dispatch({ type: actionTypes.SET_USER, user })
 }
 
-// this.props.dispatch(login(username, password))
+export const logoutUser = () => (dispatch) => {
+  return dispatch({ type: actionTypes.LOGOUT_USER })
+}
 
-export const login = (username, password) => (dispatch) => {
-  // make your api request
-  // .then((res) => {
-  //   dispatch(setAuthenticated(true));
-  // })
+export const createAccount = (accountDetails) => (dispatch) => {
+  dispatch({ type: actionTypes.SET_LOADING, ui: { isLoading: true } })
+  API.createNewUser(credentials).then((res) => {
+    if (res.success) dispatch({ type: actionTypes.CREATE_ACCOUNT, res })
+  })
+}
+
+export const login = (credentials) => (dispatch) => {
+  dispatch({ type: actionTypes.SET_LOADING, ui: { isLoading: true } })
+  API.login(credentials).then((res) => {
+    dispatch(setUser(res))
+  })
+}
+
+export const logout = (username, password) => (dispatch) => {
+  API.login({ username, password }).then((res) => {
+    dispatch(logoutUser())
+  })
 }

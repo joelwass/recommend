@@ -3,7 +3,7 @@ import withRedux from 'next-redux-wrapper'
 import Link from 'next/link'
 import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
-import { setAuthenticated } from '../store/actions'
+import { logout } from '../store/actions'
 
 const Logout = (props) => (
   <div>
@@ -16,7 +16,7 @@ const Logout = (props) => (
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setAuthenticated: bindActionCreators(setAuthenticated, dispatch)
+    setAuthenticated: bindActionCreators(logout, dispatch)
   }
 }
 

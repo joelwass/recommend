@@ -54,7 +54,7 @@ module.exports = {
         }
 
         // return session id
-        return res.status(200).json({ success: true, sessionId })
+        return res.status(200).json({ success: true, sessionId, user: authenticatedUser })
       })
       .catch(err => {
         helper.methods.handleErrors(err, res)
