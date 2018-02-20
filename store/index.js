@@ -4,7 +4,8 @@ import thunkMiddleware from 'redux-thunk'
 import { mainReducer } from './reducers'
 
 const initialState = {
-  user: {}
+  user: {},
+  ui: {}
 }
 
 export const initStore = (state = initialState) => {

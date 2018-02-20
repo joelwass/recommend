@@ -7,6 +7,10 @@ const userInitialState = {
   user: {}
 }
 
+const uiInitialState = {
+  isLoading: false
+}
+
 // USER REDUCER
 export const user = (state = userInitialState, action) => {
   switch (action.type) {
@@ -21,7 +25,17 @@ export const user = (state = userInitialState, action) => {
   }
 }
 
+export const ui = (state = uiInitialState, action) => {
+  switch (action.type) {
+    case actionTypes.SET_LOADING:
+      return Object.assign({}, state, { isLoading: action.isLoading })
+    default:
+      return state
+  }
+}
+
 // MAIN REDUCER
 export const mainReducer = combineReducers({
-  user
+  user,
+  ui
 })

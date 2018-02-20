@@ -2,3 +2,6 @@
 export const SET_AUTHENTICATED = 'SET_AUTHENTICATED'
 export const SET_SESSION_ID = 'SET_SESSION_ID'
 export const SET_USER = 'SET_USER'
+
+// UI ACTIONS
+export const SET_LOADING = 'SET_LOADING'
