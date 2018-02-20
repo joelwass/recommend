@@ -22,7 +22,7 @@ class Login extends React.Component {
   render() {
     return (
       <Layout>
-        <h1>now on the login page.</h1>
+        <h1>Login or Sign Up</h1>
         <p>am i authenticated? {this.props.authenticated ? 'yes' : 'no'}</p>
         <p>Email</p>
         <input
@@ -33,7 +33,6 @@ class Login extends React.Component {
           type="text"
           onChange={(e) => this.handleLoginInput(e, 'password')}/>
         <button onClick={() => this.props.login({ email: this.state.email, password: this.state.password })}>log me in</button>
-        <Link href='/'><a>back to index page</a></Link><br/>
         <p>Don't have an account yet?</p>
         <Link href='/register'><a>create one</a></Link>
       </Layout>

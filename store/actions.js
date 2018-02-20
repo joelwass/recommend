@@ -29,7 +29,8 @@ export const login = (credentials) => (dispatch) => {
 }
 
 export const logout = (username, password) => (dispatch) => {
-  API.login({ username, password }).then((res) => {
-    dispatch(logoutUser())
+  API.logout({ username, password }).then((res) => {
+    if (res.success) dispatch(logoutUser())
+    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: 'Error logging out' })
   })
 }
