@@ -22,8 +22,8 @@ module.exports = {
   noRecommendationFromThatUserId: 'No recommendation exists from that user id',
 
   // auth
-  sorryWeCantFindEmail: 'We couldn\'t find a user by that email',
-  passwordInvalid: 'Password was invalid for login attempt',
+  sorryWeCantFindEmail: 'Username or password was incorrect',
+  passwordInvalid: 'Username or password was incorrect',
   unauthorizedRequest: 'Invalid auth token sent down',
   expiredSessionId: 'Auth token has expired'
 }

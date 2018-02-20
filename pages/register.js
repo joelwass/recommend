@@ -3,6 +3,7 @@ import withRedux from 'next-redux-wrapper'
 import Link from 'next/link'
 import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
+import Layout from '../components/Layout'
 import { createAccount } from '../store/actions'
 
 class Register extends React.Component {
@@ -47,7 +48,7 @@ class Register extends React.Component {
 
   render() {
     return (
-      <div>
+      <Layout>
         <h1>now on the create account page.</h1>
         <p>email</p>
         <input
@@ -73,7 +74,7 @@ class Register extends React.Component {
         <Link href='/'><a>back to index page</a></Link><br/>
         <p>Already have an account?</p>
         <Link href='/login'><a>Log in</a></Link>
-      </div>
+      </Layout>
     )
   }
 }

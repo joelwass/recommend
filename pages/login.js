@@ -3,6 +3,7 @@ import withRedux from 'next-redux-wrapper'
 import Link from 'next/link'
 import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
+import Layout from '../components/Layout'
 import { login } from '../store/actions'
 
 class Login extends React.Component {
@@ -20,7 +21,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <Layout>
         <h1>now on the login page.</h1>
         <p>am i authenticated? {this.props.authenticated ? 'yes' : 'no'}</p>
         <p>Email</p>
@@ -35,7 +36,7 @@ class Login extends React.Component {
         <Link href='/'><a>back to index page</a></Link><br/>
         <p>Don't have an account yet?</p>
         <Link href='/register'><a>create one</a></Link>
-      </div>
+      </Layout>
     )
   }
 }

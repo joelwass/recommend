@@ -1,4 +1,5 @@
 import Header from './Header'
+import ValidationContainer from './ValidationContainer'
 
 const layoutStyle = {
   margin: 20,
@@ -9,6 +10,7 @@ const layoutStyle = {
 const Layout = (props) => (
   <div style={layoutStyle}>
     <Header />
+    <ValidationContainer/>
     {props.children}
   </div>
 )

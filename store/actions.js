@@ -11,18 +11,20 @@ export const logoutUser = () => (dispatch) => {
 }
 
 export const createAccount = (accountDetails) => (dispatch) => {
+  dispatch({ type: actionTypes.SET_ERROR, errorMessage: '' })
   dispatch({ type: actionTypes.SET_LOADING, ui: { isLoading: true } })
   API.createNewUser(accountDetails).then((res) => {
     if (res.success) dispatch({ type: actionTypes.CREATE_ACCOUNT, res })
-    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.message })
+    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
   })
 }
 
 export const login = (credentials) => (dispatch) => {
+  dispatch({ type: actionTypes.SET_ERROR, errorMessage: '' })
   dispatch({ type: actionTypes.SET_LOADING, ui: { isLoading: true } })
   API.login(credentials).then((res) => {
     if (res.success) dispatch(setUser(res))
-    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.message })
+    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
   })
 }
 
