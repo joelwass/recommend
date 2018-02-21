@@ -1,7 +1,6 @@
 import Link from 'next/link'
-import withRedux from 'next-redux-wrapper'
+import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { initStore } from '../store'
 import { logout } from '../store/actions'
 
 const linkStyle = {
@@ -40,4 +39,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

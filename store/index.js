@@ -5,7 +5,8 @@ import { mainReducer } from './reducers'
 
 const initialState = {
   user: {},
-  ui: {}
+  ui: {},
+  recommendations: {}
 }
 
 export const initStore = (state = initialState) => {

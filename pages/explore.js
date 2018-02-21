@@ -13,7 +13,6 @@ class Explore extends React.Component {
 
   componentDidMount() {
     // fetch all recommendations
-    console.log('here')
     this.props.getRecommendations()
   }
 
@@ -21,6 +20,11 @@ class Explore extends React.Component {
     return (
       <Layout>
         <h1>Explore</h1>
+        <div>
+          { this.props.timelineRecommendations && this.props.timelineRecommendations.map(rec => (
+            <div>{ rec.subject} </div>
+          ))}
+        </div>
       </Layout>
     )
   }
@@ -34,7 +38,8 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    authenticated: state.user.authenticated
+    authenticated: state.user.authenticated,
+    timelineRecommendations: state.recommendations.timelineRecommendations
   }
 }
 

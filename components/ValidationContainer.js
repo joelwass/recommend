@@ -1,6 +1,5 @@
 import React from 'react'
-import withRedux from 'next-redux-wrapper'
-import { initStore } from '../store'
+import { connect } from 'react-redux'
 
 const ValidationContainer = (props) => (
   <div>
@@ -19,4 +18,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default withRedux(initStore, mapStateToProps, mapDispatchToProps)(ValidationContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(ValidationContainer)
