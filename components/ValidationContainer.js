@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 const ValidationContainer = (props) => (
   <div>
     {props.errorMessage &&
-      <div id="errorMessage">{props.errorMessage}</div>}
+      <div id='errorMessage'>{props.errorMessage}</div>}
   </div>
 )
 

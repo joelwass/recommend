@@ -1,16 +1,11 @@
 import Header from './Header'
 import ValidationContainer from './ValidationContainer'
-
-const layoutStyle = {
-  margin: 20,
-  padding: 20,
-  border: '1px solid #DDD'
-}
+import '../styles/main.scss'
 
 const Layout = (props) => (
-  <div style={layoutStyle}>
+  <div className='main'>
     <Header />
-    <ValidationContainer/>
+    <ValidationContainer />
     {props.children}
   </div>
 )

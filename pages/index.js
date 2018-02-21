@@ -1,8 +1,7 @@
 import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import Layout from '../components/Layout'
-import Link from 'next/link'
-import { bindActionCreators } from 'redux'
+// import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
 
 class Index extends React.Component {

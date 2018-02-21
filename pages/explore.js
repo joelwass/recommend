@@ -20,6 +20,9 @@ class Explore extends React.Component {
     return (
       <Layout>
         <h1>Explore</h1>
+        { !this.props.authenticated &&
+          <p>Please log in to view recommendations</p>
+        }
         <div>
           { this.props.timelineRecommendations && this.props.timelineRecommendations.map(rec => (
             <div>{ rec.subject} </div>

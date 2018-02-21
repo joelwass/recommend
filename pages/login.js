@@ -7,34 +7,43 @@ import Layout from '../components/Layout'
 import { login } from '../store/actions'
 
 class Login extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       email: '',
       password: ''
     }
+    this.handleLoginInput = this.handleLoginInput.bind(this)
   }
 
-  handleLoginInput = (e, key) => {
+  handleLoginInput (e, key) {
     this.setState({ [key]: e.target.value })
   }
 
-  render() {
+  render () {
     return (
       <Layout>
-        <h1>Login or Sign Up</h1>
-        <p>am i authenticated? {this.props.authenticated ? 'yes' : 'no'}</p>
-        <p>Email</p>
-        <input
-          type="text"
-          onChange={(e) => this.handleLoginInput(e, 'email')}/>
-        <p>Password</p>
-        <input
-          type="text"
-          onChange={(e) => this.handleLoginInput(e, 'password')}/>
-        <button onClick={() => this.props.login({ email: this.state.email, password: this.state.password })}>log me in</button>
-        <p>Don't have an account yet?</p>
-        <Link href='/register'><a>create one</a></Link>
+        <form className='login-form'>
+          <h1 className='login-header'>Sign In</h1>
+          <input
+            type='email'
+            onChange={(e) => this.handleLoginInput(e, 'email')}
+            placeholder='Email' />
+          <input
+            type='password'
+            onChange={(e) => this.handleLoginInput(e, 'password')}
+            placeholder='Password' />
+          <button
+            className='login-form__button'
+            onClick={() => this.props.login({ email: this.state.email, password: this.state.password })}
+          >
+            Enter
+          </button>
+          <div className='login-form__register'>
+            <p>Don't have an account yet?</p>
+            <Link href='/register'><a>create one</a></Link>
+          </div>
+        </form>
       </Layout>
     )
   }
