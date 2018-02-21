@@ -71,6 +71,16 @@ module.exports = {
         helper.methods.handleErrors(err, res)
       })
   },
+  getAllRecommendation: (req, res) => {
+    sqlModels.Recommendation.findAll()
+      .then(localRecommendations => {
+        if (!localRecommendations) throw new helper.CustomError(helper.strings.noRecommendationsReturned)
+        return res.status(200).json({ success: true, recommendations: localRecommendations.toJSON() })
+      })
+      .catch(err => {
+        helper.methods.handleErrors(err, res)
+      })
+  },
   deleteRecommendation: (req, res) => {
     // validate params, required id to delete recommendation
     const params = pluck(['id'], req.params).end()

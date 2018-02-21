@@ -34,3 +34,7 @@ export const logout = (username, password) => (dispatch) => {
     else dispatch({ type: actionTypes.SET_ERROR, errorMessage: 'Error logging out' })
   })
 }
+
+export const getRecommendations = () => (dispatch) => {
+  API.getAllRecommendations()
+}

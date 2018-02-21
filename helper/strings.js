@@ -20,6 +20,7 @@ module.exports = {
   recommendationSuccesfullyDeleted: 'The recommendation was succesfully deleted',
   noRecommendationForThatUserId: 'No recommendation exists for that user id',
   noRecommendationFromThatUserId: 'No recommendation exists from that user id',
+  noRecommendationsReturned: 'No recommendations exist',
 
   // auth
   sorryWeCantFindEmail: 'Username or password was incorrect',

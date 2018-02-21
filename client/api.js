@@ -38,6 +38,13 @@ module.exports = {
         console.log(err)
       })
   },
+  getAllRecommendations: (body) => {
+    return fetch(`${endpoint}/recommendation/all`)
+      .then(res => res.json())
+      .catch(err => {
+        console.log(err)
+      })
+  },
   createNewUser: (body) => {
     return fetch(`${endpoint}/user`, { method: 'POST', body: JSON.stringify(body), headers })
       .then(res => res.json())
