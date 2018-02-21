@@ -59,10 +59,10 @@ module.exports = {
   },
   getRecommendation: (req, res) => {
     // validate params, required id to get recommendation for
-    const params = pluck(['public_id'], req.params).end()
+    const params = pluck(['id'], req.params).end()
     if (!params.id) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
-    sqlModels.Recommendation.findOne({ where: { public_id: params.public_id } })
+    sqlModels.Recommendation.findOne({ where: { public_id: params.id } })
       .then(localRecommendation => {
         if (!localRecommendation) throw new helper.CustomError(helper.strings.noRecommendationForThatId)
         return res.status(200).json({ success: true, recommendation: localRecommendation.toJSON() })
@@ -71,11 +71,11 @@ module.exports = {
         helper.methods.handleErrors(err, res)
       })
   },
-  getAllRecommendation: (req, res) => {
+  getAllRecommendations: (req, res) => {
     sqlModels.Recommendation.findAll()
       .then(localRecommendations => {
         if (!localRecommendations) throw new helper.CustomError(helper.strings.noRecommendationsReturned)
-        return res.status(200).json({ success: true, recommendations: localRecommendations.toJSON() })
+        return res.status(200).json({ success: true, recommendations: localRecommendations })
       })
       .catch(err => {
         helper.methods.handleErrors(err, res)

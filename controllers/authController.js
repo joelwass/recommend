@@ -19,14 +19,14 @@ const twoHoursInMilliseconds = 7200000
 module.exports = {
   authenticateSessionId: (req, res, next) => {
     // make sure we have a sessionId in the header
-    const sessionId = req.get('auth')
+    const sessionId = req.get('Auth')
 
     // look it up in redis
     const currentSession = redis[sessionId]
     if (!currentSession) return res.status(401).json({ success: false, message: helper.strings.unauthorizedRequest })
 
     // check if the session has expired
-    if (currentSession.expiresAt > Date.now()) {
+    if (currentSession.expiresAt <= Date.now()) {
       // nuke that session and return 401
       delete redis[sessionId]
       return res.status(401).json({ success: false, message: helper.strings.expiredSessionId })
@@ -35,7 +35,7 @@ module.exports = {
     // set the current user id
     req.currentUserId = currentSession.userId
     req.authToken = sessionId
-    next()
+    return next()
   },
   loginUser: (req, res) => {
     // validate params, email and password is required
@@ -50,7 +50,7 @@ module.exports = {
         // declare users session
         redis[sessionId] = {
           userId: authenticatedUser.id,
-          expiresAt: Date().now + twoHoursInMilliseconds
+          expiresAt: Date.now() + twoHoursInMilliseconds
         }
 
         // return session id

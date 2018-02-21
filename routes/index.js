@@ -19,13 +19,14 @@ router.route('/user/:email?')
 router.get('/users', controllers.authController.authenticateSessionId, controllers.userController.getUsers)
 
 // recommendation routes
+router.get('/recommendation/all', controllers.authController.authenticateSessionId, controllers.recommendationController.getAllRecommendations)
+
 router.route('/recommendation/:id?')
   .post(controllers.authController.authenticateSessionId, controllers.recommendationController.createRecommendation)
   .get(controllers.authController.authenticateSessionId, controllers.recommendationController.getRecommendation)
   .put(controllers.authController.authenticateSessionId, controllers.recommendationController.updateRecommendation)
   .delete(controllers.authController.authenticateSessionId, controllers.recommendationController.deleteRecommendation)
 
-router.get('/recommendation/all', controllers.authController.authenticateSessionId, controllers.recommendationController.getAllRecommendation)
 
 router.get('/recommendation/for/:userId', controllers.authController.authenticateSessionId, controllers.recommendationController.getRecommendationsForUser)
 router.get('/recommendation/from/:userId', controllers.authController.authenticateSessionId, controllers.recommendationController.getRecommendationsFromUser)

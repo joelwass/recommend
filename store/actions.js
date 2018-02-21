@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes'
-import { API } from '../client'
+import API from '../client/api'
 
 // ACTIONS
 export const setUser = (user) => (dispatch) => {
@@ -28,13 +28,18 @@ export const login = (credentials) => (dispatch) => {
   })
 }
 
-export const logout = (username, password) => (dispatch) => {
-  API.logout({ username, password }).then((res) => {
+export const logout = () => (dispatch) => {
+  API.logout().then((res) => {
     if (res.success) dispatch(logoutUser())
     else dispatch({ type: actionTypes.SET_ERROR, errorMessage: 'Error logging out' })
   })
 }
 
 export const getRecommendations = () => (dispatch) => {
-  API.getAllRecommendations()
+  console.log('wtf is happening')
+  API.getAllRecommendations().then((res) => {
+    console.log(res)
+    if (res.success) dispatch({ type: actionTypes.SET_EXPLORE_RECOMMENDATIONS, recommendations: res.recommendations })
+    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
+  })
 }

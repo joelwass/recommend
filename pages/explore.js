@@ -4,7 +4,7 @@ import { initStore } from '../store'
 import { getRecommendations } from '../store/actions'
 import Layout from '../components/Layout'
 
-default class Explore extends React.Component {
+class Explore extends React.Component {
 
   constructor(props) {
     super(props)
@@ -13,6 +13,8 @@ default class Explore extends React.Component {
 
   componentDidMount() {
     // fetch all recommendations
+    console.log('here')
+    this.props.getRecommendations()
   }
 
   render() {

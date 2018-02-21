@@ -20,9 +20,7 @@ const Header = (props) => (
       <a style={linkStyle}>Explore</a>
     </Link>
     {props.authenticated ?
-      <Link onClick={props.logout}>
-        <a style={linkStyle}>Logout</a>
-      </Link> :
+      <a style={linkStyle} onClick={props.logout}>Logout</a> :
       <Link href='/login'>
         <a style={linkStyle}>Login</a>
       </Link>

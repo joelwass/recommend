@@ -12,6 +12,10 @@ const uiInitialState = {
   errorMessage: ''
 }
 
+const recommendationsInitialState = {
+  timelineRecommendations: []
+}
+
 // USER REDUCER
 export const user = (state = userInitialState, action) => {
   switch (action.type) {
@@ -37,8 +41,18 @@ export const ui = (state = uiInitialState, action) => {
   }
 }
 
+export const recommendations = (state = recommendationsInitialState, action) => {
+  switch (action.type) {
+    case actionTypes.SET_EXPLORE_RECOMMENDATIONS:
+      return Object.assign({}, state, { timelineRecommendations: action.recommendations })
+    default:
+      return state
+  }
+}
+
 // MAIN REDUCER
 export const mainReducer = combineReducers({
   user,
-  ui
+  ui,
+  recommendations
 })

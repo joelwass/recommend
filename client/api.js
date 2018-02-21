@@ -2,54 +2,76 @@ const fetch = require('node-fetch')
 const endpoint = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000/api/v1'
 const headers = { 'Content-Type': 'application/json' }
 
-module.exports = {
-  login: (body) => {
+class API {
+  setAuthToken = (authToken) => {
+    this.authToken = authToken
+    headers['Auth'] = authToken
+  }
+
+  login = (body) => {
     return fetch(`${endpoint}/user/login`, { method: 'POST', body: JSON.stringify(body), headers })
       .then(res => res.json())
+      .then(res => {
+        if (res.success) this.setAuthToken(res.sessionId)
+        return res
+      })
       .catch(err => {
         console.log(err)
       })
-  },
-  logout: (body) => {
-    return fetch(`${endpoint}/user/logout`, { method: 'POST', body: JSON.stringify(body), headers })
+  }
+
+  logout = () => {
+    return fetch(`${endpoint}/user/logout`, { method: 'POST', headers })
       .then(res => res.json())
       .catch(err => {
         console.log(err)
       })
-  },
-  makeRecommendation: (body) => {
+  }
+
+  makeRecommendation = (body) => {
     return fetch(`${endpoint}/recommendation`, { method: 'POST', body: JSON.stringify(body), headers })
       .then(res => res.json())
       .catch(err => {
         console.log(err)
       })
-  },
-  deleteRecommendation: (body) => {
+  }
+
+  deleteRecommendation = (body) => {
     return fetch(`${endpoint}/recommendation`, { method: 'DELETE', body: JSON.stringify(body), headers })
       .then(res => res.json())
       .catch(err => {
         console.log(err)
       })
-  },
-  updateRecommendation: (body) => {
+  }
+
+  updateRecommendation = (body) => {
     return fetch(`${endpoint}/recommendation`, { method: 'PUT', body: JSON.stringify(body), headers })
       .then(res => res.json())
       .catch(err => {
         console.log(err)
       })
-  },
-  getAllRecommendations: (body) => {
-    return fetch(`${endpoint}/recommendation/all`)
+  }
+
+  getAllRecommendations = (body) => {
+    console.log('getting all recommendations')
+    return fetch(`${endpoint}/recommendation/all`, { method: 'GET', headers })
       .then(res => res.json())
+      .then(res => {
+        console.log(res)
+        return res
+      })
       .catch(err => {
         console.log(err)
       })
-  },
-  createNewUser: (body) => {
+  }
+
+  createNewUser = (body) => {
     return fetch(`${endpoint}/user`, { method: 'POST', body: JSON.stringify(body), headers })
       .then(res => res.json())
       .catch(err => {
         console.log(err)
       })
-  },
+  }
 }
+
+export default new API()
