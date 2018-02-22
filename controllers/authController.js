@@ -53,8 +53,13 @@ module.exports = {
           expiresAt: Date.now() + twoHoursInMilliseconds
         }
 
+        const jsonUser = authenticatedUser.toJSON()
+        delete jsonUser.password
+        delete jsonUser.createdAt
+        delete jsonUser.updatedAt
+
         // return session id
-        return res.status(200).json({ success: true, sessionId, user: authenticatedUser })
+        return res.status(200).json({ success: true, sessionId, user: jsonUser })
       })
       .catch(err => {
         helper.methods.handleErrors(err, res)

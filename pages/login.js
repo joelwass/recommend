@@ -2,6 +2,7 @@ import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import Link from 'next/link'
 import { bindActionCreators } from 'redux'
+import Router from 'next/router'
 import { initStore } from '../store'
 import Layout from '../components/Layout'
 import { login } from '../store/actions'
@@ -19,6 +20,10 @@ class Login extends React.Component {
 
   handleLoginInput (e, key) {
     this.setState({ [key]: e.target.value })
+  }
+
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.authenticated) Router.push('/explore')
   }
 
   handleLogin (e) {

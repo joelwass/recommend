@@ -3,7 +3,7 @@ import API from '../client/api'
 
 // ACTIONS
 export const setUser = (user) => (dispatch) => {
-  return dispatch({ type: actionTypes.SET_USER, user })
+  return dispatch({ type: actionTypes.SET_USER, data: user })
 }
 
 export const logoutUser = () => (dispatch) => {
@@ -14,7 +14,7 @@ export const createAccount = (accountDetails) => (dispatch) => {
   dispatch({ type: actionTypes.SET_ERROR, errorMessage: '' })
   dispatch({ type: actionTypes.SET_LOADING, ui: { isLoading: true } })
   API.createNewUser(accountDetails).then((res) => {
-    if (res.success) dispatch({ type: actionTypes.CREATE_ACCOUNT, res })
+    if (res.success) dispatch({ type: actionTypes.CREATE_ACCOUNT, data: res })
     else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
   })
 }

@@ -20,11 +20,12 @@ const recommendationsInitialState = {
 export const user = (state = userInitialState, action) => {
   switch (action.type) {
     case actionTypes.SET_USER:
-      return Object.assign({}, state, { sessionId: action.sessionId, user: action.user, authenticated: true })
+      console.log(action)
+      return Object.assign({}, state, { sessionId: action.data.sessionId, user: action.data.user, authenticated: true })
     case actionTypes.LOGOUT_USER:
       return Object.assign({}, state, { sessionId: '', user: {}, authenticated: false })
     case actionTypes.CREATE_ACCOUNT:
-      return Object.assign({}, state, { sessionId: action.sessionId, user: action.user, authenticated: true })
+      return Object.assign({}, state, { sessionId: action.data.sessionId, user: action.data.user, authenticated: true })
     default:
       return state
   }

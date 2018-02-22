@@ -93,7 +93,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     authenticated: state.user.authenticated,
-    userId: state.user.user && state.user.user && state.user.user.user.id
+    userId: state.user && state.user.user && state.user.user.id
   }
 }
 
