@@ -3,20 +3,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { logout } from '../store/actions'
 
-const linkStyle = {
-  marginRight: 15
-}
-
 const Header = (props) => (
-  <div>
+  <div className='header-test'>
     <Link href='/'>
-      <a style={linkStyle}>Home</a>
+      <a>Home</a>
     </Link>
     <Link href='/recommend'>
-      <a style={linkStyle}>Recommend</a>
+      <a>Recommend</a>
     </Link>
     <Link href='/explore'>
-      <a style={linkStyle}>Explore</a>
+      <a>Explore</a>
     </Link>
     {props.authenticated
       ? <a onClick={props.logout}>Logout</a>
