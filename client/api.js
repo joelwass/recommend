@@ -53,13 +53,8 @@ class API {
   }
 
   getAllRecommendations (body) {
-    console.log('getting all recommendations')
     return fetch(`${endpoint}/recommendation/all`, { method: 'GET', headers })
       .then(res => res.json())
-      .then(res => {
-        console.log(res)
-        return res
-      })
       .catch(err => {
         console.log(err)
       })

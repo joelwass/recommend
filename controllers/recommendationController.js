@@ -101,7 +101,6 @@ module.exports = {
   getRecommendationsForUser: (req, res) => {
     // validate params, required id to get recommendations for
     const params = pluck(['userId'], req.params).end()
-    console.log(params)
     if (!params.userId) return res.status(200).json({ success: false, message: helper.strings.invalidParameters })
 
     sqlModels.Recommendation.findAll({ where: { to_user: params.userId } })

@@ -25,7 +25,7 @@ class Explore extends React.Component {
         }
         <div>
           { this.props.timelineRecommendations && this.props.timelineRecommendations.map(rec => (
-            <div>{ rec.subject} </div>
+            <div key={rec.public_id}>{ rec.subject} </div>
           ))}
         </div>
       </Layout>

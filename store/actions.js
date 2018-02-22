@@ -36,9 +36,7 @@ export const logout = () => (dispatch) => {
 }
 
 export const getRecommendations = () => (dispatch) => {
-  console.log('wtf is happening')
   API.getAllRecommendations().then((res) => {
-    console.log(res)
     if (res.success) dispatch({ type: actionTypes.SET_EXPLORE_RECOMMENDATIONS, recommendations: res.recommendations })
     else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
   })
