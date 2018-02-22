@@ -1,3 +1,5 @@
+const constants = require('../helper/constants')
+
 module.exports = (sequelize, DataTypes) => {
   const Recomendation = sequelize.define('Recommendation', {
     id: {
@@ -23,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     category: {
       type: DataTypes.STRING,
       validate: {
-        isIn: [['books', 'movies', 'restaurants', 'miscellaneous', 'food', 'activities', 'places', 'music', 'apps', 'games', 'websites']]
+        isIn: [constants.RECOMMENDATION_CATEGORIES]
       },
       required: true
     },
@@ -38,7 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     status: {
       type: DataTypes.STRING,
       validate: {
-        isIn: [['pending', 'resolved']]
+        isIn: [constants.RECOMMENDATION_STATUS_TYPES]
       },
       defaultValue: 'pending'
     },

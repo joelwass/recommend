@@ -13,6 +13,7 @@ const uiInitialState = {
 }
 
 const recommendationsInitialState = {
+  categories: [],
   timelineRecommendations: []
 }
 
@@ -46,6 +47,8 @@ export const recommendations = (state = recommendationsInitialState, action) => 
   switch (action.type) {
     case actionTypes.SET_EXPLORE_RECOMMENDATIONS:
       return Object.assign({}, state, { timelineRecommendations: action.recommendations })
+    case actionTypes.SET_RECOMMENDATION_CATEGORIES:
+      return Object.assign({}, state, { categories: action.categories })
     default:
       return state
   }

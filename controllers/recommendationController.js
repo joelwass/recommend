@@ -2,6 +2,7 @@ const pluck = require('object-pluck')
 const ulid = require('ulid').ulid
 const sqlModels = require('../models')
 const helper = require('../helper')
+const constants = require('../helper/constants')
 
 module.exports = {
   createRecommendation: (req, res) => {
@@ -70,6 +71,9 @@ module.exports = {
       .catch(err => {
         helper.methods.handleErrors(err, res)
       })
+  },
+  getRecommendationCategories: (req, res) => {
+    return res.status(200).json({ success: true, categories: constants.RECOMMENDATION_CATEGORIES })
   },
   getAllRecommendations: (req, res) => {
     sqlModels.Recommendation.findAll()

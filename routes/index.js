@@ -20,6 +20,7 @@ router.get('/users', controllers.authController.authenticateSessionId, controlle
 
 // recommendation routes
 router.get('/recommendation/all', controllers.authController.authenticateSessionId, controllers.recommendationController.getAllRecommendations)
+router.get('/recommendation/categories', controllers.authController.authenticateSessionId, controllers.recommendationController.getRecommendationCategories)
 
 router.route('/recommendation/:id?')
   .post(controllers.authController.authenticateSessionId, controllers.recommendationController.createRecommendation)

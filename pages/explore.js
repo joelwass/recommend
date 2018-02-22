@@ -12,8 +12,10 @@ class Explore extends React.Component {
   }
 
   componentDidMount () {
-    // fetch all recommendations
-    this.props.getRecommendations()
+    if (this.props.authenticated) {
+      // fetch all recommendations
+      this.props.getRecommendations()
+    }
   }
 
   render () {
@@ -24,8 +26,8 @@ class Explore extends React.Component {
           <p>Please log in to view recommendations</p>
         }
         <div>
-          { this.props.timelineRecommendations && this.props.timelineRecommendations.map(rec => (
-            <div key={rec.public_id}>{ rec.subject} </div>
+          { this.props.timelineRecommendations.map(rec => (
+            <div key={rec.public_id}>{ rec.subject } </div>
           ))}
         </div>
       </Layout>

@@ -52,6 +52,14 @@ class API {
       })
   }
 
+  getRecommendationCategories () {
+    return fetch(`${endpoint}/recommendation/categories`, { method: 'GET', headers })
+      .then(res => res.json())
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   getAllRecommendations (body) {
     return fetch(`${endpoint}/recommendation/all`, { method: 'GET', headers })
       .then(res => res.json())

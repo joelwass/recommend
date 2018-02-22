@@ -50,6 +50,13 @@ export const getRecommendations = () => (dispatch) => {
   })
 }
 
+export const getRecommendationCategories = () => (dispatch) => {
+  API.getRecommendationCategories().then((res) => {
+    if (res.success) dispatch({ type: actionTypes.SET_RECOMMENDATION_CATEGORIES, categories: res.categories })
+    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
+  })
+}
+
 export const createRecommendation = (recommendation) => (dispatch) => {
   API.makeRecommendation(recommendation).then((res) => {
     if (res.success) console.log('Recommendation created succesfully')

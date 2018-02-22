@@ -1,7 +1,13 @@
 import withRedux from 'next-redux-wrapper'
 import { bindActionCreators } from 'redux'
+// import Select from 'react-virtualized-select'
+// import { getIndexedOptions } from '../client/selector'
 import { initStore } from '../store'
-import { createRecommendation, setError, clearErrors } from '../store/actions'
+import {
+  getRecommendationCategories,
+  createRecommendation,
+  setError,
+  clearErrors } from '../store/actions'
 import Layout from '../components/Layout'
 import Dropdown from '../components/Dropdown'
 import React from 'react'
@@ -17,47 +23,47 @@ class Recommend extends React.Component {
         prediction: true,
         category: undefined
       },
-      isValid: false,
-      options: ['books', 'movies', 'restaurants', 'miscellaneous', 'food', 'activities', 'places', 'music', 'apps', 'games', 'websites']
+      isValid: false
     }
     this.handleCreateRecommendationInput = this.handleCreateRecommendationInput.bind(this)
     this.handleCreateRecommendation = this.handleCreateRecommendation.bind(this)
-    this.validateCreds = this.validateCreds.bind(this)
+    this.validateInput = this.validateInput.bind(this)
   }
 
   componentDidMount () {
-    // set dropdown options
-    this.setState({ dropdownOptions: this.state.options.map(option => ({ name: option, value: option })) })
-    // set from_user id
-    this.setState(Object.assign(this.state.recommendation, { from_user: this.props.userId }))
+    if (this.props.authenticated) {
+      // get categories from api
+      this.props.getRecommendationCategories()
+      // set from_user id
+      this.setState((prevState) => ({
+        recommendation: {
+          ...prevState.recommendation,
+          from_user: this.props.userId
+        }
+      }))
+    }
   }
 
   handleCreateRecommendationInput (e, key) {
     this.setState({ details: Object.assign(this.state.recommendation, { [key]: e.target.value }) })
   }
 
-  handleCreateRecommendation (e) {
-    e.preventDefault()
+  handleCreateRecommendation () {
     this.props.createRecommendation(this.state.recommendation)
   }
 
   // validate the recommend details
-  validateCreds (e) {
-    this.props.clearErrors()
+  validateInput (e) {
     e.preventDefault()
+    this.props.clearErrors()
     const keys = Object.keys(this.state.recommendation)
-    let valid = true
-    keys.forEach(key => {
-      if (!this.state.recommendation[key]) {
-        console.log(key)
-        this.setState({ isValid: false })
-        valid = false
-      }
-    })
-    if (valid) {
+    if (!keys.every(key => !!this.state.recommendation[key])) {
+      this.setState({ isValid: false })
+      this.props.setError('Invalid create recommendation details')
+    } else {
       this.setState({ isValid: true })
-      this.props.createRecommendation(this.state.recommendation)
-    } else this.props.setError('Invalid create recommendation details')
+      this.handleCreateRecommendation()
+    }
   }
 
   render () {
@@ -73,8 +79,8 @@ class Recommend extends React.Component {
             Subject of recommendation:
             <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'subject')} /><br />
             Category of recommendation:
-            <Dropdown name='category' id='category' options={this.state.dropdownOptions} onChangeHandler={this.handleCreateRecommendationInput} />
-            <button onClick={this.validateCreds}>Submit Recommendation</button>
+            <Dropdown name='category' id='category' options={this.props.categories} onChangeHandler={this.handleCreateRecommendationInput} />
+            <button onClick={this.validateInput}>Submit Recommendation</button>
           </form>
         }
       </Layout>
@@ -85,15 +91,17 @@ class Recommend extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     setError: bindActionCreators(setError, dispatch),
+    clearErrors: bindActionCreators(clearErrors, dispatch),
     createRecommendation: bindActionCreators(createRecommendation, dispatch),
-    clearErrors: bindActionCreators(clearErrors, dispatch)
+    getRecommendationCategories: bindActionCreators(getRecommendationCategories, dispatch)
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     authenticated: state.user.authenticated,
-    userId: state.user && state.user.user && state.user.user.id
+    categories: state.recommendations.categories,
+    userId: state.user.user.id
   }
 }
 
