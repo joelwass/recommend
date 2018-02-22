@@ -3,7 +3,6 @@ import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
 import { getRecommendations, setError } from '../store/actions'
 import Layout from '../components/Layout'
-import Dropdown from '../components/Dropdown'
 import React from 'react'
 
 class Recommend extends React.Component {
@@ -14,7 +13,7 @@ class Recommend extends React.Component {
         to_user: undefined,
         from_user: undefined,
         subject: undefined,
-        prediction: undefined,
+        prediction: true,
         category: undefined
       },
       isValid: false
@@ -65,8 +64,6 @@ class Recommend extends React.Component {
             <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'to_user')} /><br />
             Subject of recommendation:
             <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'subject')} /><br />
-            Prediction of recommendation:
-            <Dropdown name='prediction' id='predictionDropdown' options={[{ name: 'like', value: true }, { name: 'dislike', value: false }]} onChangeHandler={this.handleCreateRecommendationInput} />
             Category of recommendation:
             <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'category')} /><br />
             <button onClick={this.validateCreds}>Submit Recommendation</button>
