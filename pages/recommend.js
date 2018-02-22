@@ -1,8 +1,9 @@
 import withRedux from 'next-redux-wrapper'
 import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
-import { getRecommendations, setError } from '../store/actions'
+import { createRecommendation, setError } from '../store/actions'
 import Layout from '../components/Layout'
+import Dropdown from '../components/Dropdown'
 import React from 'react'
 
 class Recommend extends React.Component {
@@ -16,7 +17,8 @@ class Recommend extends React.Component {
         prediction: true,
         category: undefined
       },
-      isValid: false
+      isValid: false,
+      options: ['books', 'movies', 'restaurants', 'miscellaneous', 'food', 'activities', 'places', 'music', 'apps', 'games', 'websites']
     }
     this.handleCreateRecommendationInput = this.handleCreateRecommendationInput.bind(this)
     this.handleCreateRecommendation = this.handleCreateRecommendation.bind(this)
@@ -24,6 +26,7 @@ class Recommend extends React.Component {
   }
 
   componentDidMount () {
+    this.setState({ dropdownOptions: this.state.options.map(option => ({ name: option, value: option })) })
   }
 
   handleCreateRecommendationInput (e, key) {
@@ -65,7 +68,7 @@ class Recommend extends React.Component {
             Subject of recommendation:
             <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'subject')} /><br />
             Category of recommendation:
-            <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'category')} /><br />
+            <Dropdown name='category' id='category' options={this.state.dropdownOptions} />
             <button onClick={this.validateCreds}>Submit Recommendation</button>
           </form>
         }
@@ -77,7 +80,7 @@ class Recommend extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     setError: bindActionCreators(setError, dispatch),
-    createRecommendation: bindActionCreators(getRecommendations, dispatch)
+    createRecommendation: bindActionCreators(createRecommendation, dispatch)
   }
 }
 

@@ -45,3 +45,10 @@ export const getRecommendations = () => (dispatch) => {
     else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
   })
 }
+
+export const createRecommendation = (recommendation) => (dispatch) => {
+  API.makeRecommendation(recommendation).then((res) => {
+    if (res.success) console.log('Recommendation created succesfully')
+    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
+  })
+}
