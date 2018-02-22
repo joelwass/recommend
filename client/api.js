@@ -8,6 +8,22 @@ class API {
     headers['Auth'] = authToken
   }
 
+  createNewUser (body) {
+    return fetch(`${endpoint}/user`, { method: 'POST', body: JSON.stringify(body), headers })
+      .then(res => res.json())
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  getUsers () {
+    return fetch(`${endpoint}/users`, { method: 'GET', headers })
+      .then(res => res.json())
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   login (body) {
     return fetch(`${endpoint}/user/login`, { method: 'POST', body: JSON.stringify(body), headers })
       .then(res => res.json())
@@ -62,14 +78,6 @@ class API {
 
   getAllRecommendations (body) {
     return fetch(`${endpoint}/recommendation/all`, { method: 'GET', headers })
-      .then(res => res.json())
-      .catch(err => {
-        console.log(err)
-      })
-  }
-
-  createNewUser (body) {
-    return fetch(`${endpoint}/user`, { method: 'POST', body: JSON.stringify(body), headers })
       .then(res => res.json())
       .catch(err => {
         console.log(err)

@@ -4,7 +4,8 @@ import * as actionTypes from './actionTypes'
 const userInitialState = {
   authenticated: false,
   sessionId: '',
-  user: {}
+  user: {},
+  users: []
 }
 
 const uiInitialState = {
@@ -21,8 +22,9 @@ const recommendationsInitialState = {
 export const user = (state = userInitialState, action) => {
   switch (action.type) {
     case actionTypes.SET_USER:
-      console.log(action)
       return Object.assign({}, state, { sessionId: action.data.sessionId, user: action.data.user, authenticated: true })
+    case actionTypes.SET_USERS:
+      return Object.assign({}, state, { users: action.users })
     case actionTypes.LOGOUT_USER:
       return Object.assign({}, state, { sessionId: '', user: {}, authenticated: false })
     case actionTypes.CREATE_ACCOUNT:

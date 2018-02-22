@@ -1,16 +1,17 @@
+import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import { bindActionCreators } from 'redux'
-// import Select from 'react-virtualized-select'
-// import { getIndexedOptions } from '../client/selector'
+import Select from 'react-virtualized-select'
 import { initStore } from '../store'
 import {
   getRecommendationCategories,
+  getUsers,
   createRecommendation,
   setError,
-  clearErrors } from '../store/actions'
+  clearErrors
+} from '../store/actions'
 import Layout from '../components/Layout'
 import Dropdown from '../components/Dropdown'
-import React from 'react'
 
 class Recommend extends React.Component {
   constructor (props) {
@@ -25,8 +26,11 @@ class Recommend extends React.Component {
       },
       isValid: false
     }
-    this.handleCreateRecommendationInput = this.handleCreateRecommendationInput.bind(this)
+    this.handleInput = this.handleInput.bind(this)
+    this.handleSubjectInput = this.handleSubjectInput.bind(this)
     this.handleCreateRecommendation = this.handleCreateRecommendation.bind(this)
+    this.handleUserSelect = this.handleUserSelect.bind(this)
+    this.getDigestableUsers = this.getDigestableUsers.bind(this)
     this.validateInput = this.validateInput.bind(this)
   }
 
@@ -34,6 +38,8 @@ class Recommend extends React.Component {
     if (this.props.authenticated) {
       // get categories from api
       this.props.getRecommendationCategories()
+      // get user list from api
+      this.props.getUsers(this.props.userId)
       // set from_user id
       this.setState((prevState) => ({
         recommendation: {
@@ -44,8 +50,40 @@ class Recommend extends React.Component {
     }
   }
 
-  handleCreateRecommendationInput (e, key) {
-    this.setState({ details: Object.assign(this.state.recommendation, { [key]: e.target.value }) })
+  getDigestableUsers () {
+    return this.props.users.map(user => ({
+      label: `${user.firstName} ${user.lastName}`,
+      value: user.id
+    }))
+  }
+
+  handleUserSelect ({ value }) {
+    this.setState((prevState) => ({
+      recommendation: {
+        ...prevState.recommendation,
+        to_user: value
+      }
+    }))
+  }
+
+  handleInput (e, key) {
+    const value = e.target.value
+    this.setState((prevState) => ({
+      recommendation: {
+        ...prevState.recommendation,
+        [key]: value
+      }
+    }))
+  }
+
+  handleSubjectInput (e) {
+    const value = e.target.value
+    this.setState((prevState) => ({
+      recommendation: {
+        ...prevState.recommendation,
+        subject: value
+      }
+    }))
   }
 
   handleCreateRecommendation () {
@@ -75,11 +113,14 @@ class Recommend extends React.Component {
           : <form>
             <p>Make a recommendation:</p>
             Userid of recipient:
-            <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'to_user')} /><br />
-            Subject of recommendation:
-            <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'subject')} /><br />
-            Category of recommendation:
-            <Dropdown name='category' id='category' options={this.props.categories} onChangeHandler={this.handleCreateRecommendationInput} />
+            <Select
+              onChange={this.handleUserSelect}
+              options={this.getDigestableUsers()}
+            />
+            <label htmlFor='subject'>Subject of recommendation:</label>
+            <input id='subject' type='text' onChange={this.handleSubjectInput} />
+            <label htmlFor='category'>Category of recommendation:</label>
+            <Dropdown name='category' id='category' options={this.props.categories} onChangeHandler={this.handleInput} />
             <button onClick={this.validateInput}>Submit Recommendation</button>
           </form>
         }
@@ -93,6 +134,7 @@ const mapDispatchToProps = (dispatch) => {
     setError: bindActionCreators(setError, dispatch),
     clearErrors: bindActionCreators(clearErrors, dispatch),
     createRecommendation: bindActionCreators(createRecommendation, dispatch),
+    getUsers: bindActionCreators(getUsers, dispatch),
     getRecommendationCategories: bindActionCreators(getRecommendationCategories, dispatch)
   }
 }
@@ -101,7 +143,8 @@ const mapStateToProps = (state) => {
   return {
     authenticated: state.user.authenticated,
     categories: state.recommendations.categories,
-    userId: state.user.user.id
+    userId: state.user.user.id,
+    users: state.user.users
   }
 }
 

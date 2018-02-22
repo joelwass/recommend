@@ -65,7 +65,7 @@ module.exports = {
     sqlModels.User.findAll()
       .then(users => {
         // iterate over all users and remove password field
-        const returnUsers = users.map(user => pluck(['firstName', 'lastName'], user.toJSON()).end())
+        const returnUsers = users.map(user => pluck(['id', 'firstName', 'lastName'], user.toJSON()).end())
 
         return res.status(200).json({ success: true, users: returnUsers })
       })

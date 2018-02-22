@@ -1,7 +1,19 @@
 import * as actionTypes from './actionTypes'
 import API from '../client/api'
 
-// ACTIONS
+// USER ACTIONS
+export const getUsers = (excludeId) => (dispatch) => {
+  API.getUsers().then((res) => {
+    if (res.success) {
+      dispatch({
+        type: actionTypes.SET_USERS,
+        users: excludeId ? res.users.filter(x => x.id !== excludeId) : res.users
+      })
+    } else {
+      dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
+    }
+  })
+}
 export const setUser = (user) => (dispatch) => {
   return dispatch({ type: actionTypes.SET_USER, data: user })
 }
@@ -35,6 +47,7 @@ export const logout = () => (dispatch) => {
   })
 }
 
+// UI ACTIONS
 export const setError = (errorMessage) => (dispatch) => {
   dispatch({ type: actionTypes.SET_ERROR, errorMessage })
 }
@@ -43,6 +56,7 @@ export const clearErrors = () => (dispatch) => {
   dispatch({ type: actionTypes.SET_ERROR, errorMessage: '' })
 }
 
+// RECOMMENDATION ACTIONS
 export const getRecommendations = () => (dispatch) => {
   API.getAllRecommendations().then((res) => {
     if (res.success) dispatch({ type: actionTypes.SET_EXPLORE_RECOMMENDATIONS, recommendations: res.recommendations })
