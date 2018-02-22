@@ -1,7 +1,7 @@
 import withRedux from 'next-redux-wrapper'
 import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
-import { createRecommendation, setError } from '../store/actions'
+import { createRecommendation, setError, clearErrors } from '../store/actions'
 import Layout from '../components/Layout'
 import Dropdown from '../components/Dropdown'
 import React from 'react'
@@ -26,7 +26,10 @@ class Recommend extends React.Component {
   }
 
   componentDidMount () {
+    // set dropdown options
     this.setState({ dropdownOptions: this.state.options.map(option => ({ name: option, value: option })) })
+    // set from_user id
+    this.setState(Object.assign(this.state.recommendation, { from_user: this.props.userId }))
   }
 
   handleCreateRecommendationInput (e, key) {
@@ -40,11 +43,13 @@ class Recommend extends React.Component {
 
   // validate the recommend details
   validateCreds (e) {
+    this.props.clearErrors()
     e.preventDefault()
     const keys = Object.keys(this.state.recommendation)
     let valid = true
     keys.forEach(key => {
       if (!this.state.recommendation[key]) {
+        console.log(key)
         this.setState({ isValid: false })
         valid = false
       }
@@ -63,12 +68,12 @@ class Recommend extends React.Component {
           ? <p>Please log in to make a recommendation</p>
           : <form>
             <p>Make a recommendation:</p>
-            Username of recipient:
+            Userid of recipient:
             <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'to_user')} /><br />
             Subject of recommendation:
             <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'subject')} /><br />
             Category of recommendation:
-            <Dropdown name='category' id='category' options={this.state.dropdownOptions} />
+            <Dropdown name='category' id='category' options={this.state.dropdownOptions} onChangeHandler={this.handleCreateRecommendationInput} />
             <button onClick={this.validateCreds}>Submit Recommendation</button>
           </form>
         }
@@ -80,13 +85,15 @@ class Recommend extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     setError: bindActionCreators(setError, dispatch),
-    createRecommendation: bindActionCreators(createRecommendation, dispatch)
+    createRecommendation: bindActionCreators(createRecommendation, dispatch),
+    clearErrors: bindActionCreators(clearErrors, dispatch)
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    authenticated: state.user.authenticated
+    authenticated: state.user.authenticated,
+    userId: state.user.user && state.user.user && state.user.user.user.id
   }
 }
 
