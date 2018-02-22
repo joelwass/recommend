@@ -27,7 +27,6 @@ router.route('/recommendation/:id?')
   .put(controllers.authController.authenticateSessionId, controllers.recommendationController.updateRecommendation)
   .delete(controllers.authController.authenticateSessionId, controllers.recommendationController.deleteRecommendation)
 
-
 router.get('/recommendation/for/:userId', controllers.authController.authenticateSessionId, controllers.recommendationController.getRecommendationsForUser)
 router.get('/recommendation/from/:userId', controllers.authController.authenticateSessionId, controllers.recommendationController.getRecommendationsFromUser)
 

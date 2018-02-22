@@ -3,10 +3,10 @@ import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
 import { getRecommendations } from '../store/actions'
 import Layout from '../components/Layout'
+import React from 'react'
 
 class Recommend extends React.Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
       recommendation: {
@@ -18,32 +18,32 @@ class Recommend extends React.Component {
       },
       isValid: false
     }
+    this.handleCreateRecommendationInput = this.handleCreateRecommendationInput.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
   }
 
-  handleCreateRecommendationInput = (e, key) => {
+  handleCreateRecommendationInput (e, key) {
     this.setState({ details: Object.assign(this.state.recommendation, { [key]: e.target.value }) })
   }
 
-  render() {
+  render () {
     return (
       <Layout>
         <h1>Recommend</h1>
-        { !this.props.authenticated ?
-          <p>Please log in to make a recommendation</p>
-          :
-          <div>
+        { !this.props.authenticated
+          ? <p>Please log in to make a recommendation</p>
+          : <div>
             <p>Make a recommendation:</p>
             Username of recipient:
-            <input type="text" onChange={ (e) => this.handleCreateRecommendationInput(e, 'to_user') }/><br/>
+            <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'to_user')} /><br />
             Subject of recommendation:
-            <input type="text" onChange={ (e) => this.handleCreateRecommendationInput(e, 'subject') }/><br/>
+            <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'subject')} /><br />
             Prediction of recommendation:
-            <input type="text" onChange={ (e) => this.handleCreateRecommendationInput(e, 'prediction') }/><br/>
+            <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'prediction')} /><br />
             Category of recommendation:
-            <input type="text" onChange={ (e) => this.handleCreateRecommendationInput(e, 'category') }/><br/>
+            <input type='text' onChange={(e) => this.handleCreateRecommendationInput(e, 'category')} /><br />
             <button onClick={this.props.createRecommendation}>Submit Recommendation</button>
           </div>
         }

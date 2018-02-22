@@ -3,12 +3,12 @@ const endpoint = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:
 const headers = { 'Content-Type': 'application/json' }
 
 class API {
-  setAuthToken = (authToken) => {
+  setAuthToken (authToken) {
     this.authToken = authToken
     headers['Auth'] = authToken
   }
 
-  login = (body) => {
+  login (body) {
     return fetch(`${endpoint}/user/login`, { method: 'POST', body: JSON.stringify(body), headers })
       .then(res => res.json())
       .then(res => {
@@ -20,7 +20,7 @@ class API {
       })
   }
 
-  logout = () => {
+  logout () {
     return fetch(`${endpoint}/user/logout`, { method: 'POST', headers })
       .then(res => res.json())
       .catch(err => {
@@ -28,7 +28,7 @@ class API {
       })
   }
 
-  makeRecommendation = (body) => {
+  makeRecommendation (body) {
     return fetch(`${endpoint}/recommendation`, { method: 'POST', body: JSON.stringify(body), headers })
       .then(res => res.json())
       .catch(err => {
@@ -36,7 +36,7 @@ class API {
       })
   }
 
-  deleteRecommendation = (body) => {
+  deleteRecommendation (body) {
     return fetch(`${endpoint}/recommendation`, { method: 'DELETE', body: JSON.stringify(body), headers })
       .then(res => res.json())
       .catch(err => {
@@ -44,7 +44,7 @@ class API {
       })
   }
 
-  updateRecommendation = (body) => {
+  updateRecommendation (body) {
     return fetch(`${endpoint}/recommendation`, { method: 'PUT', body: JSON.stringify(body), headers })
       .then(res => res.json())
       .catch(err => {
@@ -52,7 +52,7 @@ class API {
       })
   }
 
-  getAllRecommendations = (body) => {
+  getAllRecommendations (body) {
     console.log('getting all recommendations')
     return fetch(`${endpoint}/recommendation/all`, { method: 'GET', headers })
       .then(res => res.json())
@@ -65,7 +65,7 @@ class API {
       })
   }
 
-  createNewUser = (body) => {
+  createNewUser (body) {
     return fetch(`${endpoint}/user`, { method: 'POST', body: JSON.stringify(body), headers })
       .then(res => res.json())
       .catch(err => {

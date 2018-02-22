@@ -1,22 +1,22 @@
 import withRedux from 'next-redux-wrapper'
 import { bindActionCreators } from 'redux'
+import React from 'react'
 import { initStore } from '../store'
 import { getRecommendations } from '../store/actions'
 import Layout from '../components/Layout'
 
 class Explore extends React.Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {}
   }
 
-  componentDidMount() {
+  componentDidMount () {
     // fetch all recommendations
     this.props.getRecommendations()
   }
 
-  render() {
+  render () {
     return (
       <Layout>
         <h1>Explore</h1>

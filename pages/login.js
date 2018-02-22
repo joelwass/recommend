@@ -14,10 +14,16 @@ class Login extends React.Component {
       password: ''
     }
     this.handleLoginInput = this.handleLoginInput.bind(this)
+    this.handleLogin = this.handleLogin.bind(this)
   }
 
   handleLoginInput (e, key) {
     this.setState({ [key]: e.target.value })
+  }
+
+  handleLogin (e) {
+    e.preventDefault()
+    this.props.login({ email: this.state.email, password: this.state.password })
   }
 
   render () {
@@ -26,7 +32,6 @@ class Login extends React.Component {
         <form className='login-form'>
           <h1 className='login-header'>Sign In</h1>
           <input
-            type='email'
             onChange={(e) => this.handleLoginInput(e, 'email')}
             placeholder='Email' />
           <input
@@ -35,7 +40,7 @@ class Login extends React.Component {
             placeholder='Password' />
           <button
             className='login-form__button'
-            onClick={() => this.props.login({ email: this.state.email, password: this.state.password })}
+            onClick={this.handleLogin}
           >
             Enter
           </button>

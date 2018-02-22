@@ -5,16 +5,16 @@ import Layout from '../components/Layout'
 import { initStore } from '../store'
 
 class Index extends React.Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props)
+    this.state = {}
   }
 
-  userDash = () => {
+  userDash () {
     return <h1>Welcome back User!</h1>
   }
 
-  splashPage = () => {
+  splashPage () {
     return <h1>Welcome to our hot app.</h1>
   }
 

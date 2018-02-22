@@ -18,10 +18,10 @@ const Header = (props) => (
     <Link href='/explore'>
       <a style={linkStyle}>Explore</a>
     </Link>
-    {props.authenticated ?
-      <a style={linkStyle} onClick={props.logout}>Logout</a> :
-      <Link href='/login'>
-        <a style={linkStyle}>Login</a>
+    {props.authenticated
+      ? <a onClick={props.logout}>Logout</a>
+      : <Link href='/login'>
+        <a >Login</a>
       </Link>
     }
   </div>
