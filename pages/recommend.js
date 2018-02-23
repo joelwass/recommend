@@ -27,7 +27,6 @@ class Recommend extends React.Component {
       isValid: false
     }
     this.handleInput = this.handleInput.bind(this)
-    this.handleSubjectInput = this.handleSubjectInput.bind(this)
     this.handleCreateRecommendation = this.handleCreateRecommendation.bind(this)
     this.handleUserSelect = this.handleUserSelect.bind(this)
     this.getDigestableUsers = this.getDigestableUsers.bind(this)
@@ -76,16 +75,6 @@ class Recommend extends React.Component {
     }))
   }
 
-  handleSubjectInput (e) {
-    const value = e.target.value
-    this.setState((prevState) => ({
-      recommendation: {
-        ...prevState.recommendation,
-        subject: value
-      }
-    }))
-  }
-
   handleCreateRecommendation () {
     this.props.createRecommendation(this.state.recommendation)
   }
@@ -118,7 +107,7 @@ class Recommend extends React.Component {
               options={this.getDigestableUsers()}
             />
             <label htmlFor='subject'>Subject of recommendation:</label>
-            <input id='subject' type='text' onChange={this.handleSubjectInput} />
+            <input id='subject' type='text' onChange={(e) => this.handleInput(e, 'subject')} />
             <label htmlFor='category'>Category of recommendation:</label>
             <Dropdown name='category' id='category' options={this.props.categories} onChangeHandler={this.handleInput} />
             <button onClick={this.validateInput}>Submit Recommendation</button>

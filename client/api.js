@@ -44,6 +44,15 @@ class API {
       })
   }
 
+  resume (sessionKey) {
+    this.setAuthToken(sessionKey)
+    return fetch(`${endpoint}/user/resume`, { method: 'POST', headers })
+      .then(res => res.json())
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
   makeRecommendation (body) {
     return fetch(`${endpoint}/recommendation`, { method: 'POST', body: JSON.stringify(body), headers })
       .then(res => res.json())

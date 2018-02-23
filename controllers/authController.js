@@ -69,5 +69,31 @@ module.exports = {
     // nuke the session and return 200
     delete redis[req.authToken]
     return res.status(200).json({ success: true })
+  },
+  resume: (req, res) => {
+    const userId = redis[req.authToken].userId
+    sqlModels.User.findById(userId)
+      .then(authenticatedUser => {
+        // generate a fresh session id for them
+        const sessionId = ulid()
+        // save user session
+        redis[sessionId] = {
+          userId: authenticatedUser.id,
+          expiresAt: Date.now() + twoHoursInMilliseconds
+        }
+        // delete the old session
+        delete redis[req.authToken]
+
+        const jsonUser = authenticatedUser.toJSON()
+        delete jsonUser.password
+        delete jsonUser.createdAt
+        delete jsonUser.updatedAt
+
+        // return session id
+        return res.status(200).json({ success: true, sessionId, user: jsonUser })
+      })
+      .catch(err => {
+        helper.methods.handleErrors(err, res)
+      })
   }
 }

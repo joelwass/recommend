@@ -1,3 +1,5 @@
+import Cookie from 'js-cookie'
+import { SESSION_COOKIE } from '../client/constants'
 import * as actionTypes from './actionTypes'
 import API from '../client/api'
 
@@ -14,8 +16,10 @@ export const getUsers = (excludeId) => (dispatch) => {
     }
   })
 }
-export const setUser = (user) => (dispatch) => {
-  return dispatch({ type: actionTypes.SET_USER, data: user })
+export const setUser = (data) => (dispatch) => {
+  // set the cookie so we can resume easier
+  Cookie.set(SESSION_COOKIE, data.sessionId)
+  return dispatch({ type: actionTypes.SET_USER, data })
 }
 
 export const logoutUser = () => (dispatch) => {
@@ -35,8 +39,11 @@ export const login = (credentials) => (dispatch) => {
   dispatch({ type: actionTypes.SET_ERROR, errorMessage: '' })
   dispatch({ type: actionTypes.SET_LOADING, ui: { isLoading: true } })
   API.login(credentials).then((res) => {
-    if (res.success) dispatch(setUser(res))
-    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
+    if (res.success) {
+      dispatch(setUser(res))
+    } else {
+      dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
+    }
   })
 }
 
@@ -44,6 +51,14 @@ export const logout = () => (dispatch) => {
   API.logout().then((res) => {
     if (res.success) dispatch(logoutUser())
     else dispatch({ type: actionTypes.SET_ERROR, errorMessage: 'Error logging out' })
+  })
+}
+
+export const resume = (sessionKey) => (dispatch) => {
+  API.resume(sessionKey).then((res) => {
+    if (res.success) {
+      dispatch(setUser(res))
+    }
   })
 }
 
