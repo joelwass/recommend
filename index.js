@@ -1,18 +1,31 @@
+const path = require('path')
 const next = require('next')
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const sqlModel = require('./models')
-const routes = require('./routes/index')
+const withSass = require('@zeit/next-sass')
+const sqlModel = require('./server/models')
+const routes = require('./server/routes')
+
+const conf = withSass({
+  sassLoaderOptions: {
+    includePaths: [path.resolve('./client/styles')]
+  }
+})
 
 const port = process.env.PORT || 3000
 const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev })
-const handle = app.getRequestHandler()
+const app = next({
+  dev,
+  conf,
+  dir: './client'
+})
+const handle = app.getRequestHandler();
 
-sqlModel.sequelize.sync()
-  .then(app.prepare())
-  .then(() => {
+(async () => {
+  try {
+    await sqlModel.sequelize.sync()
+    await app.prepare()
     const server = express()
 
     server.use(cors())
@@ -38,8 +51,8 @@ sqlModel.sequelize.sync()
       if (err) throw err
       console.log('> Ready on http://localhost:3000')
     })
-  })
-  .catch((err) => {
+  } catch (err) {
     console.error(err.stack)
     process.exit(1)
-  })
+  }
+})()

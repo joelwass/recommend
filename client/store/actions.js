@@ -1,7 +1,7 @@
 import Cookie from 'js-cookie'
-import { SESSION_COOKIE } from '../client/constants'
+import { SESSION_COOKIE } from '../helper/constants'
 import * as actionTypes from './actionTypes'
-import API from '../client/api'
+import API from '../helper/api'
 
 // USER ACTIONS
 export const getUsers = (excludeId) => (dispatch) => {
