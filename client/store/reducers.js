@@ -9,7 +9,7 @@ const userInitialState = {
 }
 
 const uiInitialState = {
-  isLoading: false,
+  loading: false,
   errorMessage: ''
 }
 
@@ -37,7 +37,7 @@ export const user = (state = userInitialState, action) => {
 export const ui = (state = uiInitialState, action) => {
   switch (action.type) {
     case actionTypes.SET_LOADING:
-      return Object.assign({}, state, { isLoading: action.isLoading })
+      return Object.assign({}, state, { loading: action.loading })
     case actionTypes.SET_ERROR:
       return Object.assign({}, state, { errorMessage: action.errorMessage })
     default:

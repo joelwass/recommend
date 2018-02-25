@@ -5,6 +5,7 @@ import API from '../helper/api'
 
 // USER ACTIONS
 export const getUsers = (excludeId) => (dispatch) => {
+  dispatch(setLoading(true))
   API.getUsers().then((res) => {
     if (res.success) {
       dispatch({
@@ -12,8 +13,9 @@ export const getUsers = (excludeId) => (dispatch) => {
         users: excludeId ? res.users.filter(x => x.id !== excludeId) : res.users
       })
     } else {
-      dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
+      dispatch(setError(res.error))
     }
+    dispatch(setLoading(false))
   })
 }
 export const setUser = (data) => (dispatch) => {
@@ -23,42 +25,55 @@ export const setUser = (data) => (dispatch) => {
 }
 
 export const logoutUser = () => (dispatch) => {
+  Cookie.remove(SESSION_COOKIE)
   return dispatch({ type: actionTypes.LOGOUT_USER })
 }
 
 export const createAccount = (accountDetails) => (dispatch) => {
-  dispatch({ type: actionTypes.SET_ERROR, errorMessage: '' })
-  dispatch({ type: actionTypes.SET_LOADING, ui: { isLoading: true } })
+  dispatch(clearErrors())
+  dispatch(setLoading(true))
   API.createNewUser(accountDetails).then((res) => {
-    if (res.success) dispatch({ type: actionTypes.CREATE_ACCOUNT, data: res })
-    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
+    if (res.success) {
+      dispatch({ type: actionTypes.CREATE_ACCOUNT, data: res })
+    } else {
+      dispatch(setError(res.error))
+    }
+    dispatch(setLoading(false))
   })
 }
 
 export const login = (credentials) => (dispatch) => {
-  dispatch({ type: actionTypes.SET_ERROR, errorMessage: '' })
-  dispatch({ type: actionTypes.SET_LOADING, ui: { isLoading: true } })
+  dispatch(clearErrors())
+  dispatch(setLoading(true))
   API.login(credentials).then((res) => {
     if (res.success) {
       dispatch(setUser(res))
     } else {
-      dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
+      dispatch(setError(res.error))
     }
+    dispatch(setLoading(false))
   })
 }
 
 export const logout = () => (dispatch) => {
+  dispatch(setLoading(true))
   API.logout().then((res) => {
-    if (res.success) dispatch(logoutUser())
-    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: 'Error logging out' })
+    if (res.success) {
+      dispatch(logoutUser())
+    } else {
+      dispatch(setError('Error logging out'))
+    }
+    dispatch(setLoading(false))
   })
 }
 
 export const resume = (sessionKey) => (dispatch) => {
+  dispatch(setLoading(true))
   API.resume(sessionKey).then((res) => {
     if (res.success) {
       dispatch(setUser(res))
     }
+    dispatch(setLoading(false))
   })
 }
 
@@ -69,6 +84,17 @@ export const setError = (errorMessage) => (dispatch) => {
 
 export const clearErrors = () => (dispatch) => {
   dispatch({ type: actionTypes.SET_ERROR, errorMessage: '' })
+}
+
+export const setLoading = (loading) => (dispatch) => {
+  // if (!loading) {
+  //   setTimeout(() => dispatch({
+  //     type: actionTypes.SET_LOADING,
+  //     loading
+  //   }), 700)
+  // } else {
+  dispatch({ type: actionTypes.SET_LOADING, loading })
+  // }
 }
 
 // RECOMMENDATION ACTIONS

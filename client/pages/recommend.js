@@ -101,7 +101,7 @@ class Recommend extends React.Component {
           ? <p>Please log in to make a recommendation</p>
           : <form>
             <p>Make a recommendation:</p>
-            Userid of recipient:
+            Recipient:
             <Select
               onChange={this.handleUserSelect}
               options={this.getDigestableUsers()}

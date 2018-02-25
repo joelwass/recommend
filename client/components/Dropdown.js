@@ -1,5 +1,3 @@
-import '../styles/main.scss'
-
 const parseOptions = options => options.map(option => ({ name: option, value: option }))
 
 const Dropdown = (props) => (
