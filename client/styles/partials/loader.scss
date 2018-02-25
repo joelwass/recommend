@@ -4,7 +4,7 @@
 
 .loader-enter.loader-enter-active {
   opacity: 1;
-  transition: opacity 500ms ease-in;
+  transition: opacity 300ms ease-in;
 }
 
 .loader-leave {
@@ -13,7 +13,7 @@
 
 .loader-leave.loader-leave-active {
   opacity: 0.01;
-  transition: opacity 300ms ease-in;
+  transition: opacity 100ms ease-in;
 }
 
 #loader-wrapper {
