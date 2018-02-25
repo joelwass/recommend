@@ -87,14 +87,7 @@ export const clearErrors = () => (dispatch) => {
 }
 
 export const setLoading = (loading) => (dispatch) => {
-  // if (!loading) {
-  //   setTimeout(() => dispatch({
-  //     type: actionTypes.SET_LOADING,
-  //     loading
-  //   }), 700)
-  // } else {
   dispatch({ type: actionTypes.SET_LOADING, loading })
-  // }
 }
 
 // RECOMMENDATION ACTIONS
