@@ -4,23 +4,41 @@ import { bindActionCreators } from 'redux'
 import { logout } from '../store/actions'
 
 const Header = (props) => (
-  <div className='header-test'>
-    <Link href='/'>
-      <a>Home</a>
-    </Link>
-    <Link href='/recommend'>
-      <a>Recommend</a>
-    </Link>
-    <Link href='/explore'>
-      <a>Explore</a>
-    </Link>
-    {props.authenticated
-      ? <a onClick={props.logout}>Logout</a>
-      : <Link href='/login'>
-        <a >Login</a>
+  <nav>
+    <div class='right'>
+      <input id='search' placeholder='search' />
+      <Link href='/login'>
+        <button id='login'>
+          Login
+        </button>
       </Link>
-    }
-  </div>
+    </div>
+    <div class='left'>
+      <div class='left'>
+        <Link href='/'>
+          <h1 id='logo'>
+            Recommend
+          </h1>
+        </Link>
+      </div>
+      <div class='right'>
+        <ul>
+          <li>
+            <Link href='/explore'>
+              <a>explore</a>
+            </Link>
+          </li>
+          <li>
+            <Link href='/recommend'>
+              <a>recommend</a>
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div class='clear' />
+    </div>
+    <div class='clear' />
+  </nav>
 )
 
 const mapDispatchToProps = (dispatch) => {

@@ -7,6 +7,7 @@ import { SESSION_COOKIE } from '../helper/constants'
 import { resume, setLoading } from '../store/actions'
 import Header from './Header'
 import Loader from './Loader'
+import Footer from './Footer'
 import ValidationContainer from './ValidationContainer'
 import '../styles/main.scss'
 
@@ -32,10 +33,13 @@ class Layout extends React.Component {
   render () {
     return (
       <div className='main'>
-        <Loader />
-        <Header />
-        <ValidationContainer />
-        {this.props.children}
+        <div className='page'>
+          <Loader />
+          <Header />
+          <ValidationContainer />
+          {this.props.children}
+        </div>
+        <Footer />
       </div>
     )
   }

@@ -4,6 +4,22 @@
     font-family: $theme-font;
 }
 
+.page {
+    min-height: calc(100vh - 80px);
+}
+
+.left {
+    float: left;
+}
+
+.right {
+    float: right;
+}
+
+.clear {
+    clear: both;
+}
+
 a {
     text-decoration: none;
 }
