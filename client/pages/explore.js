@@ -21,12 +21,12 @@ class Explore extends React.Component {
   render () {
     return (
       <Layout>
-        <h1>Explore</h1>
+        <h1>Explore recent recommendations made by your friends </h1>
         { !this.props.authenticated &&
           <p>Please log in to view recommendations</p>
         }
         <div>
-          { this.props.timelineRecommendations.map(rec => (
+          { this.props.timelineRecommendations.map((rec) => (
             <div key={rec.public_id}>{ rec.subject } </div>
           ))}
         </div>

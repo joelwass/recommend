@@ -1,8 +1,9 @@
 import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import Layout from '../components/Layout'
-// import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
+import { getRecommendationsForUser } from '../store/actions'
 
 class Index extends React.Component {
   constructor (props) {
@@ -11,11 +12,26 @@ class Index extends React.Component {
   }
 
   userDash () {
-    return <h1>Welcome back User!</h1>
+    return (
+      <div>
+        <h1>Welcome back User!</h1>
+        { this.props.outstandingRecommendations.map(rec => (
+          <div key={rec.public_id}>{ rec.subject } </div>
+        ))}
+      </div>
+    )
   }
 
   splashPage () {
-    return <h1>Welcome to our hot app.</h1>
+    return (
+      <div>
+        <h1>Welcome to our hot app.</h1>
+      </div>
+    )
+  }
+
+  componentDidMount () {
+    this.props.getRecommendationsForUser(this.props.userId)
   }
 
   render () {
@@ -34,12 +50,16 @@ class Index extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    getRecommendationsForUser: bindActionCreators(getRecommendationsForUser, dispatch)
+  }
 }
 
 const mapStateToProps = (state) => {
   return {
-    authenticated: state.user.authenticated
+    authenticated: state.user.authenticated,
+    userId: state.user.user.id,
+    outstandingRecommendations: state.user.outstandingRecommendations
   }
 }
 

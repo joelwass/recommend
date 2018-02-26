@@ -22,7 +22,7 @@ const Header = (props) => (
       <div class='left'>
         <Link href='/'>
           <h1 id='logo'>
-            Recommend
+            Home
           </h1>
         </Link>
       </div>
@@ -30,12 +30,12 @@ const Header = (props) => (
         <ul>
           <li>
             <Link href='/explore'>
-              <a>explore</a>
+              <a>Explore</a>
             </Link>
           </li>
           <li>
             <Link href='/recommend'>
-              <a>recommend</a>
+              <a>Recommend</a>
             </Link>
           </li>
         </ul>

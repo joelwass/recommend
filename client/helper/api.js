@@ -92,6 +92,15 @@ class API {
         console.log(err)
       })
   }
+
+  getRecommendationsForUser (userId) {
+    console.log(userId)
+    return fetch(`${endpoint}/recommendation/${userId}`, { method: 'GET', headers })
+      .then(res => res.json())
+      .catch(err => {
+        console.log(err)
+      })
+  }
 }
 
 export default new API()

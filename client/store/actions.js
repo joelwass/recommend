@@ -98,6 +98,13 @@ export const getRecommendations = () => (dispatch) => {
   })
 }
 
+export const getRecommendationsForUser = (userId) => (dispatch) => {
+  API.getRecommendationsForUser(userId).then((res) => {
+    if (res.success) dispatch({ type: actionTypes.SET_CURRENT_USER_RECOMMENDATIONS, recommendations: res.recommendations })
+    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
+  })
+}
+
 export const getRecommendationCategories = () => (dispatch) => {
   API.getRecommendationCategories().then((res) => {
     if (res.success) dispatch({ type: actionTypes.SET_RECOMMENDATION_CATEGORIES, categories: res.categories })
