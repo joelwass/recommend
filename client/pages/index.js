@@ -25,7 +25,7 @@ class Index extends React.Component {
   splashPage () {
     return (
       <div>
-        <h1>Welcome to our hot app.</h1>
+        <h1>Welcome to our hot app. Login to experience it</h1>
       </div>
     )
   }
