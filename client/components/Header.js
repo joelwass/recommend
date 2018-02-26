@@ -7,11 +7,16 @@ const Header = (props) => (
   <nav>
     <div class='right'>
       <input id='search' placeholder='search' />
-      <Link href='/login'>
-        <button id='login'>
-          Login
+      {!props.authenticated
+        ? <Link href='/login'>
+          <button id='login'>
+            Login
+          </button>
+        </Link>
+        : <button id='login' onClick={props.logout}>
+          Logout
         </button>
-      </Link>
+      }
     </div>
     <div class='left'>
       <div class='left'>
