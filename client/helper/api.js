@@ -93,8 +93,16 @@ class API {
       })
   }
 
-  getRecommendationsForUser (userId) {
-    return fetch(`${endpoint}/recommendation/for/${userId}`, { method: 'GET', headers })
+  getPendingRecommendationsForUser (userId) {
+    return fetch(`${endpoint}/recommendation/for/${userId}/pending`, { method: 'GET', headers })
+      .then(res => res.json())
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  getResolvedRecommendationsForUser (userId) {
+    return fetch(`${endpoint}/recommendation/for/${userId}/resolved`, { method: 'GET', headers })
       .then(res => res.json())
       .catch(err => {
         console.log(err)

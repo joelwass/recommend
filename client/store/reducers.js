@@ -6,7 +6,8 @@ const userInitialState = {
   sessionId: '',
   user: {},
   users: [],
-  outstandingRecommendations: []
+  pendingRecommendations: [],
+  resolvedRecommendations: []
 }
 
 const uiInitialState = {
@@ -31,7 +32,9 @@ export const user = (state = userInitialState, action) => {
     case actionTypes.CREATE_ACCOUNT:
       return Object.assign({}, state, { sessionId: action.data.sessionId, user: action.data.user, authenticated: true })
     case actionTypes.SET_CURRENT_USER_RECOMMENDATIONS:
-      return Object.assign({}, state, { outstandingRecommendations: action.recommendations })
+      return Object.assign({}, state, { pendingRecommendations: action.recommendations })
+    case actionTypes.SET_CURRENT_USER_PAST_RECOMMENDATIONS:
+      return Object.assign({}, state, { resolvedRecommendations: action.recommendations })
     default:
       return state
   }

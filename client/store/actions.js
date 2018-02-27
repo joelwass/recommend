@@ -98,8 +98,8 @@ export const getRecommendations = () => (dispatch) => {
   })
 }
 
-export const getRecommendationsForUser = (userId) => (dispatch) => {
-  API.getRecommendationsForUser(userId).then((res) => {
+export const getPendingRecommendationsForUser = (userId) => (dispatch) => {
+  API.getPendingRecommendationsForUser(userId).then((res) => {
     if (res.success) dispatch({ type: actionTypes.SET_CURRENT_USER_RECOMMENDATIONS, recommendations: res.recommendations })
     else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
   })
@@ -121,14 +121,21 @@ export const createRecommendation = (recommendation) => (dispatch) => {
 
 export const updateRecommendation = (body) => (dispatch) => {
   API.updateRecommendation(body).then((res) => {
-    if (res.success) dispatch(getRecommendationsForUser(res.recommendation.to_user))
+    if (res.success) dispatch(getPendingRecommendationsForUser(res.recommendation.to_user))
     else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
   })
 }
 
 export const deleteRecommendation = (recId) => (dispatch) => {
   API.deleteRecommendation({ id: recId }).then((res) => {
-    if (res.success) dispatch(getRecommendationsForUser(res.recommendation.to_user))
+    if (res.success) dispatch(getPendingRecommendationsForUser(res.recommendation.to_user))
+    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
+  })
+}
+
+export const getResolvedRecommendationsForUser = (userId) => (dispatch) => {
+  API.getResolvedRecommendationsForUser(userId).then((res) => {
+    if (res.success) dispatch({ type: actionTypes.SET_CURRENT_USER_PAST_RECOMMENDATIONS, recommendations: res.recommendations })
     else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
   })
 }
