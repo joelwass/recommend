@@ -1,0 +1,38 @@
+.recommendation > h3 {
+  margin: 50px auto;
+  text-align: center;
+}
+
+.recommendation_card {
+  width: 60%;
+  padding: 50px;
+  margin: 50px auto;
+  border: 1px solid tomato;
+  border-radius: 6px;
+}
+
+.recommendation_card__action {
+  float: right;
+}
+
+.recommendation_card__action > button {
+  padding: 10px 20px;
+  position: relative;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+}
+
+.recommendation_card__action > .like {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.recommendation_card__action > .like:hover {
+  background-color: #43A047;
+}
+
+.recommendation_card__action > .no_like {
+  background-color: #FF8A65;
+  color: white;
+}

@@ -1,6 +1,7 @@
 import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import Layout from '../components/Layout'
+import Recommendation from '../components/Recommendation'
 import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
 import { getRecommendationsForUser } from '../store/actions'
@@ -16,7 +17,7 @@ class Index extends React.Component {
       <div>
         <h1>Welcome back User!</h1>
         { this.props.outstandingRecommendations.map(rec => (
-          <div key={rec.public_id}>{ rec.subject } </div>
+          <Recommendation public_id={rec.public_id} subject={rec.subject} />
         ))}
       </div>
     )

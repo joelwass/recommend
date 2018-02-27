@@ -4,6 +4,7 @@ import React from 'react'
 import { initStore } from '../store'
 import { getRecommendations } from '../store/actions'
 import Layout from '../components/Layout'
+import Recommendation from '../components/Recommendation'
 
 class Explore extends React.Component {
   constructor (props) {
@@ -27,7 +28,7 @@ class Explore extends React.Component {
         }
         <div>
           { this.props.timelineRecommendations.map((rec) => (
-            <div key={rec.public_id}>{ rec.subject } </div>
+            <Recommendation public_id={rec.public_id} subject={rec.subject} canReact={false} />
           ))}
         </div>
       </Layout>
