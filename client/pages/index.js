@@ -17,7 +17,7 @@ class Index extends React.Component {
       <div>
         <h1>Welcome back User!</h1>
         { this.props.outstandingRecommendations.map(rec => (
-          <Recommendation public_id={rec.public_id} subject={rec.subject} />
+          <Recommendation public_id={rec.public_id} subject={rec.subject} canReact />
         ))}
       </div>
     )
