@@ -23,7 +23,7 @@ class Login extends React.Component {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.authenticated) Router.push('/explore')
+    if (nextProps.authenticated) Router.push('/')
   }
 
   handleLogin (e) {
