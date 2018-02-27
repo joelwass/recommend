@@ -118,3 +118,17 @@ export const createRecommendation = (recommendation) => (dispatch) => {
     else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
   })
 }
+
+export const updateRecommendation = (body) => (dispatch) => {
+  API.updateRecommendation(body).then((res) => {
+    if (res.success) dispatch(getRecommendationsForUser(res.recommendation.to_user))
+    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
+  })
+}
+
+export const deleteRecommendation = (recId) => (dispatch) => {
+  API.deleteRecommendation({ id: recId }).then((res) => {
+    if (res.success) dispatch(getRecommendationsForUser(res.recommendation.to_user))
+    else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
+  })
+}

@@ -28,7 +28,7 @@ class Explore extends React.Component {
         }
         <div>
           { this.props.timelineRecommendations.map((rec) => (
-            <Recommendation public_id={rec.public_id} subject={rec.subject} canReact={false} />
+            <Recommendation public_id={rec.public_id} subject={rec.subject} canReact={false} key={rec.public_id} />
           ))}
         </div>
       </Layout>
