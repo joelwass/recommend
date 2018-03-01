@@ -53,32 +53,32 @@ class Register extends React.Component {
   render () {
     return (
       <Layout>
-        <h1>Create An Account</h1>
-        <form>
-          <p>email</p>
+        <form className='form'>
+          <h1>Create An Account</h1>
           <input
-            type='text'
+            type='email'
+            placeholder='Email'
             onChange={(e) => this.handleCreateAccountInput(e, 'email')} />
-          <p>password</p>
           <input
-            type='text'
+            type='password'
+            placeholder='Password'
             onChange={(e) => this.handleCreateAccountInput(e, 'password')} />
-          <p>first name</p>
           <input
             type='text'
+            placeholder='First Name'
             onChange={(e) => this.handleCreateAccountInput(e, 'firstName')} />
-          <p>last name</p>
           <input
             type='text'
+            placeholder='Last Name'
             onChange={(e) => this.handleCreateAccountInput(e, 'lastName')} />
-          <p>password</p>
           <input
             type='date'
             onChange={(e) => this.handleBirthdayInput(e)} />
-          <button onClick={this.validateCreds}>Create Account</button>
-          <Link href='/'><a>back to index page</a></Link><br />
-          <p>Already have an account?</p>
-          <Link href='/login'><a>Log in</a></Link>
+          <button className='form-button' classNameonClick={this.validateCreds}>Create Account</button>
+          <div className='form-option'>
+            <p>Already have an account?</p>
+            <Link href='/login'><a>Log in</a></Link>
+          </div>
         </form>
       </Layout>
     )
