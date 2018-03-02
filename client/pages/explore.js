@@ -12,26 +12,27 @@ class Explore extends React.Component {
     this.state = {}
   }
 
-  componentDidMount () {
-    if (this.props.authenticated) {
+  componentWillReceiveProps (props) {
+    if (props.authenticated && !props.timelineRecommendations.length) {
       // fetch all recommendations
-      this.props.getRecommendations()
-      this.props.getUsers()
+      props.getRecommendations()
     }
   }
 
   render () {
     return (
       <Layout>
-        <h1>Explore recent recommendations made by your friends </h1>
-        { !this.props.authenticated &&
-          <p>Please log in to view recommendations</p>
+        { !this.props.authenticated
+          ? <h2 className='center header__sub'>Please log in to view recommendations</h2>
+          : (
+            <div>
+              <h1 className='center header__sub'>Explore recent recommendations made by your friends </h1>
+              { this.props.timelineRecommendations.map((rec) => (
+                <Recommendation public_id={rec.public_id} subject={rec.subject} canReact={false} key={rec.public_id} />
+              ))}
+            </div>
+          )
         }
-        <div>
-          { this.props.timelineRecommendations.map((rec) => (
-            <Recommendation public_id={rec.public_id} subject={rec.subject} canReact={false} key={rec.public_id} />
-          ))}
-        </div>
       </Layout>
     )
   }

@@ -24,10 +24,16 @@ a {
   text-decoration: none;
 }
 
-.header-main {
-  font-size: 36px;
-  text-align: center;
-  margin: 150px 0;
+.header {
+  &__main {
+    font-size: 36px;
+    margin: 150px 0;
+  }
+
+  &__sub {
+    font-size: 24px;
+    margin: 25px;
+  }
 }
 
 .button-main {

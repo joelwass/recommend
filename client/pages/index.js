@@ -32,9 +32,9 @@ class Index extends React.Component {
 
     return (
       <div>
-        <h1>Welcome back {this.props.user.user.firstName}!</h1>
+        <h1 className='center header__main'>Welcome back {this.props.user.user.firstName}!</h1>
         <div>
-          <h2 className='center'>Pending recommendations</h2>
+          <h2 className='center header__sub'>Pending recommendations</h2>
           { this.props.pendingRecommendations.map(rec => (
             <Recommendation key={rec.public_id} public_id={rec.public_id} subject={rec.subject} canReact />
           ))}
@@ -48,7 +48,7 @@ class Index extends React.Component {
 
         { this.state.showPrevious && (
           <div className='center'>
-            <h2 className='center'>Past recommendations</h2>
+            <h2 className='header__sub'>Past recommendations</h2>
             {previousRecommendations}
             <button className='button-main' onClick={() => this.setState({ showPrevious: false })}>Hide Previous Recommendations</button>
           </div>
@@ -60,14 +60,14 @@ class Index extends React.Component {
 
   splashPage () {
     return (
-      <div className='header-main'>
+      <div className='center header__main'>
         <h1>Welcome To Recommend!</h1>
       </div>
     )
   }
 
-  componentDidMount () {
-    this.props.getPendingRecommendationsForUser(this.props.userId)
+  componentWillReceiveProps (props) {
+    if (props.authenticated) props.getPendingRecommendationsForUser(props.userId)
   }
 
   render () {

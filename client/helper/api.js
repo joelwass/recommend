@@ -48,6 +48,10 @@ class API {
     this.setAuthToken(sessionKey)
     return fetch(`${endpoint}/user/resume`, { method: 'POST', headers })
       .then(res => res.json())
+      .then(res => {
+        if (res.success) this.setAuthToken(res.sessionId)
+        return res
+      })
       .catch(err => {
         console.log(err)
       })

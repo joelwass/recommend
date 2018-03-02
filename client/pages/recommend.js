@@ -96,11 +96,10 @@ class Recommend extends React.Component {
   render () {
     return (
       <Layout>
-        <h1>Recommend</h1>
         { !this.props.authenticated
-          ? <h2>Please log in to make a recommendation</h2>
+          ? <h2 className='center header__sub'>Please log in to make a recommendation</h2>
           : <form className='recommendation'>
-            <h2>Make a Recommendation</h2>
+            <h2 className='center header__sub'>Make a Recommendation</h2>
             Recipient:
             <Select
               onChange={this.handleUserSelect}
