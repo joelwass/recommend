@@ -5,28 +5,28 @@ import { logout } from '../store/actions'
 
 const Header = (props) => (
   <nav>
-    <div class='right'>
+    <div className='right'>
       <input id='search' placeholder='search' />
       {!props.authenticated
         ? <Link href='/login'>
-          <button id='login'>
+          <button id='login' className='button-main'>
             Login
           </button>
         </Link>
-        : <button id='login' onClick={props.logout}>
+        : <button id='login' className='button-main' onClick={props.logout}>
           Logout
         </button>
       }
     </div>
-    <div class='left'>
-      <div class='left'>
+    <div className='left'>
+      <div className='left'>
         <Link href='/'>
           <h1 id='logo'>
             Home
           </h1>
         </Link>
       </div>
-      <div class='right'>
+      <div className='right'>
         <ul>
           <li>
             <Link href='/explore'>
@@ -40,9 +40,9 @@ const Header = (props) => (
           </li>
         </ul>
       </div>
-      <div class='clear' />
+      <div className='clear' />
     </div>
-    <div class='clear' />
+    <div className='clear' />
   </nav>
 )
 

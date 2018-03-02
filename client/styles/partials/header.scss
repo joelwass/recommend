@@ -1,36 +1,38 @@
 nav {
   background-color: $theme-darker-black;
   color: $theme-white;
-}
 
-nav #logo {
-  cursor: pointer;
-  margin: 0 20px;
-  line-height: 68px;
-}
+  #logo {
+    cursor: pointer;
+    margin: 0 20px;
+    line-height: 68px;
+  }
 
-nav ul {
-  list-style-type: none;
-  margin-right: 30px;
-}
+  ul {
+    list-style-type: none;
+    margin-right: 30px;
 
-nav ul > li {
-  float: left;
-}
+    > li {
+      float: left;
 
-nav ul > li a:link {
-  display: block;
-  padding: 25px;
-  color: $theme-white;
-  
-}
-
-nav ul > li a:hover {
-  background-color: $theme-light-green;
-}
-
-nav ul > li a:visited {
-  color: $theme-white;
+      a {
+        &:link {
+          display: block;
+          padding: 25px;
+          color: $theme-white;
+        }
+        &:visited {
+          color: $theme-white;
+        }
+        &:hover {
+          background-color: $theme-light-green;
+        }
+        &:active {
+          background-color: $theme-light-green;    
+        }
+      }
+    }
+  }
 }
 
 #search {
@@ -40,21 +42,8 @@ nav ul > li a:visited {
   border: none;
   margin-right: 20px;
   border-radius: 5px;
-}
 
-#login {
-  padding: 10px 20px;
-  margin-right: 30px;
-  position: relative;
-  top: 14px;
-  border-radius: 5px;
-  outline: none;
-  border: none;
-  background-color: $theme-darker-green;
-  color: $theme-white;
-  cursor: pointer;
-}
-
-#login:hover {
-  background-color: $theme-dark-green;
+  &:focus {
+      outline: none;
+  }
 }

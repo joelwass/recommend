@@ -1,5 +1,5 @@
 export default () => (
   <footer>
-    Copyright 2018
+    &copy; 2018
   </footer>
 )

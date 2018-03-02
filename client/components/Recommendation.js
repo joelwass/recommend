@@ -6,18 +6,18 @@ import { updateRecommendation, deleteRecommendation } from '../store/actions'
 const Recommendation = (props) => (
   <div>
     {props.public_id && props.subject &&
-      <div class='recommendation_card'>
+      <div className='recommendation_card'>
         {props.subject}
 
         {props.canReact &&
-        <div class='recommendation_card__action'>
-          <button class='like' onClick={() => props.updateRecommendation({ public_id: props.public_id, result: true })}>
+        <div className='recommendation_card__action'>
+          <button className='like' onClick={() => props.updateRecommendation({ public_id: props.public_id, result: true })}>
             I like
           </button>
-          <button class='no_like' onClick={() => props.updateRecommendation({ public_id: props.public_id, result: false })}>
+          <button className='no_like' onClick={() => props.updateRecommendation({ public_id: props.public_id, result: false })}>
             I don't like
           </button>
-          <button class='ignore' onClick={() => props.deleteRecommendation(props.public_id)}>
+          <button className='ignore' onClick={() => props.deleteRecommendation(props.public_id)}>
             Ignore
           </button>
         </div>}

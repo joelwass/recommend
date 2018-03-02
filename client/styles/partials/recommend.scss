@@ -1,6 +1,11 @@
-.recommendation > h3 {
-  margin: 50px auto;
-  text-align: center;
+.recommendation {
+    padding: 30px;
+
+    h2 {
+        font-size: 24px;
+        margin: 35px 0 15px 0;
+        text-align: left;
+    }
 }
 
 .recommendation_card {
