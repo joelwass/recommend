@@ -35,9 +35,9 @@ class Index extends React.Component {
         { !this.state.showPrevious
           ? <div>
             <p>Or,</p>
-            <button onClick={() => this.showPreviousRecommendations()}>see all previous recommendations</button>
+            <button className='button-main' onClick={() => this.showPreviousRecommendations()}>See All Previous Recommendations</button>
           </div>
-          : <button onClick={() => this.setState({ showPrevious: false })}>hide previous recommendations</button>}
+          : <button className='button-main' onClick={() => this.setState({ showPrevious: false })}>Hide Previous Recommendations</button>}
 
         { this.state.showPrevious && this.props.resolvedRecommendations.map(rec => (
           <Recommendation key={rec.public_id} public_id={rec.public_id} subject={rec.subject} canReact={false} />

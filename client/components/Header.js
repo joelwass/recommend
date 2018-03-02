@@ -13,7 +13,7 @@ const Header = (props) => (
             Login
           </button>
         </Link>
-        : <button id='login' onClick={props.logout}>
+        : <button id='login' className='button-main' onClick={props.logout}>
           Logout
         </button>
       }

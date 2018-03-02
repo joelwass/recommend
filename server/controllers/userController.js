@@ -16,7 +16,6 @@ module.exports = {
 
     return sqlModels.User.findOrCreate({ where: { email: params.email }, defaults: params })
       .then(result => {
-        console.log(result);
         const didCreateNewUser = result[1]
         const user = result[0].toJSON()
 
