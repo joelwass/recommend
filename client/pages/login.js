@@ -34,8 +34,8 @@ class Login extends React.Component {
   render () {
     return (
       <Layout>
-        <form className='login-form'>
-          <h1 className='login-header'>Sign In</h1>
+        <form className='form'>
+          <h1 className='form-header'>Sign In</h1>
           <input
             onChange={(e) => this.handleLoginInput(e, 'email')}
             placeholder='Email' />
@@ -44,12 +44,12 @@ class Login extends React.Component {
             onChange={(e) => this.handleLoginInput(e, 'password')}
             placeholder='Password' />
           <button
-            className='login-form__button'
+            className='form-button'
             onClick={this.handleLogin}
           >
             Enter
           </button>
-          <div className='login-form__register'>
+          <div className='form-option'>
             <p>Don't have an account yet?</p>
             <Link href='/register'><a>create one</a></Link>
           </div>
