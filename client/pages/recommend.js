@@ -110,7 +110,7 @@ class Recommend extends React.Component {
             <input id='subject' type='text' onChange={(e) => this.handleInput(e, 'subject')} />
             <label htmlFor='category'>Category of recommendation:</label>
             <Dropdown name='category' id='category' options={this.props.categories} onChangeHandler={this.handleInput} />
-            <button onClick={this.validateInput}>Submit Recommendation</button>
+            <button className='button-main' onClick={this.validateInput}>Submit Recommendation</button>
           </form>
         }
       </Layout>

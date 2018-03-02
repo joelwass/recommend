@@ -1,4 +1,4 @@
-.login-form {
+.form {
     position: relative;
     top: 80px;
     width: 30%;
@@ -33,7 +33,7 @@
         }
     }
 
-    &__button {
+    &-button {
         width: 100%;
         font-size: 1.2em;
         padding: 10px 0;
@@ -47,7 +47,7 @@
         }
     }
 
-    &__register {
+    &-option {
         margin: 30px 0;
 
         p, a {
