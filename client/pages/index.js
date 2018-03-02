@@ -48,8 +48,8 @@ class Index extends React.Component {
 
   splashPage () {
     return (
-      <div>
-        <h1>Welcome to our hot app. Login to experience it</h1>
+      <div className='header-main'>
+        <h1>Welcome To Recommend!</h1>
       </div>
     )
   }

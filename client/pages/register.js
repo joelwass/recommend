@@ -74,7 +74,7 @@ class Register extends React.Component {
           <input
             type='date'
             onChange={(e) => this.handleBirthdayInput(e)} />
-          <button className='form-button' classNameonClick={this.validateCreds}>Create Account</button>
+          <button className='form-button' onClick={this.validateCreds}>Create Account</button>
           <div className='form-option'>
             <p>Already have an account?</p>
             <Link href='/login'><a>Log in</a></Link>

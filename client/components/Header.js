@@ -5,7 +5,7 @@ import { logout } from '../store/actions'
 
 const Header = (props) => (
   <nav>
-    <div class='right'>
+    <div className='right'>
       <input id='search' placeholder='search' />
       {!props.authenticated
         ? <Link href='/login'>
@@ -18,15 +18,15 @@ const Header = (props) => (
         </button>
       }
     </div>
-    <div class='left'>
-      <div class='left'>
+    <div className='left'>
+      <div className='left'>
         <Link href='/'>
           <h1 id='logo'>
             Home
           </h1>
         </Link>
       </div>
-      <div class='right'>
+      <div className='right'>
         <ul>
           <li>
             <Link href='/explore'>
@@ -40,9 +40,9 @@ const Header = (props) => (
           </li>
         </ul>
       </div>
-      <div class='clear' />
+      <div className='clear' />
     </div>
-    <div class='clear' />
+    <div className='clear' />
   </nav>
 )
 

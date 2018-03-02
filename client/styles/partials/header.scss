@@ -25,12 +25,16 @@ nav ul > li a:link {
   
 }
 
+nav ul > li a:visited {
+  color: $theme-white;
+}
+
 nav ul > li a:hover {
   background-color: $theme-light-green;
 }
 
-nav ul > li a:visited {
-  color: $theme-white;
+nav ul > li a:active {
+  background-color: $theme-light-green;    
 }
 
 #search {
