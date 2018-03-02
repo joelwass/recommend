@@ -1,58 +1,62 @@
 .main {
-    background-color: $theme-black;
-    color: $theme-white;
-    font-family: $theme-font;
+  background-color: $theme-black;
+  color: $theme-white;
+  font-family: $theme-font;
 }
 
 .page {
-    min-height: calc(100vh - 80px);
+  min-height: calc(100vh - 80px);
 }
 
 .left {
-    float: left;
+  float: left;
 }
 
 .right {
-    float: right;
+  float: right;
 }
 
 .clear {
-    clear: both;
+  clear: both;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .header-main {
-    font-size: 36px;
-    text-align: center;
-    margin: 150px 0;
+  font-size: 36px;
+  text-align: center;
+  margin: 150px 0;
 }
 
 .button-main {
-    padding: 10px 20px;
-    margin-right: 30px;
-    position: relative;
-    top: 14px;
-    border-radius: 5px;
-    outline: none;
-    border: none;
-    background-color: $theme-darker-green;
-    color: $theme-white;
-    cursor: pointer;
-  
-    &:hover {
-      background-color: $theme-dark-green;
-    }
-  }
+  padding: 10px 20px;
+  margin-right: 30px;
+  position: relative;
+  top: 14px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background-color: $theme-darker-green;
+  color: $theme-white;
+  cursor: pointer;
 
-  .Select-placeholder {
-      display: none;
+  &:hover {
+    background-color: $theme-dark-green;
   }
+}
 
-  .Select {
-      min-height: 100px;
-      max-height: 100px;
-      overflow: scroll;
-  }
+.Select-placeholder {
+  display: none;
+}
+
+.Select {
+  min-height: 100px;
+  max-height: 100px;
+  overflow: scroll;
+}
+
+.center {
+  text-align: center;
+}

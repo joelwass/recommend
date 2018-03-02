@@ -26,22 +26,34 @@ class Index extends React.Component {
   }
 
   userDash () {
+    const previousRecommendations = this.props.resolvedRecommendations.map(rec => (
+      <Recommendation key={rec.public_id} public_id={rec.public_id} subject={rec.subject} canReact={false} />
+    ))
+
     return (
       <div>
         <h1>Welcome back {this.props.user.user.firstName}!</h1>
-        { this.props.pendingRecommendations.map(rec => (
-          <Recommendation key={rec.public_id} public_id={rec.public_id} subject={rec.subject} canReact />
-        ))}
+        <div>
+          <h2 className='center'>Pending recommendations</h2>
+          { this.props.pendingRecommendations.map(rec => (
+            <Recommendation key={rec.public_id} public_id={rec.public_id} subject={rec.subject} canReact />
+          ))}
+        </div>
 
-        { !this.state.showPrevious
-          ? <div>
+        { !this.state.showPrevious &&
+          <div className='center'>
             <button className='button-main' onClick={() => this.showPreviousRecommendations()}>See All Previous Recommendations</button>
           </div>
-          : <button className='button-main' onClick={() => this.setState({ showPrevious: false })}>Hide Previous Recommendations</button>}
+        }
 
-        { this.state.showPrevious && this.props.resolvedRecommendations.map(rec => (
-          <Recommendation key={rec.public_id} public_id={rec.public_id} subject={rec.subject} canReact={false} />
-        ))}
+        { this.state.showPrevious && (
+          <div className='center'>
+            <h2 className='center'>Past recommendations</h2>
+            {previousRecommendations}
+            <button className='button-main' onClick={() => this.setState({ showPrevious: false })}>Hide Previous Recommendations</button>
+          </div>
+          )
+        }
       </div>
     )
   }
