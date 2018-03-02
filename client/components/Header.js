@@ -9,7 +9,7 @@ const Header = (props) => (
       <input id='search' placeholder='search' />
       {!props.authenticated
         ? <Link href='/login'>
-          <button id='login'>
+          <button id='login' className='button-main'>
             Login
           </button>
         </Link>
