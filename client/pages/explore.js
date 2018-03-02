@@ -2,7 +2,7 @@ import withRedux from 'next-redux-wrapper'
 import { bindActionCreators } from 'redux'
 import React from 'react'
 import { initStore } from '../store'
-import { getRecommendations } from '../store/actions'
+import { getRecommendations, getUsers } from '../store/actions'
 import Layout from '../components/Layout'
 import Recommendation from '../components/Recommendation'
 
@@ -16,6 +16,7 @@ class Explore extends React.Component {
     if (this.props.authenticated) {
       // fetch all recommendations
       this.props.getRecommendations()
+      this.props.getUsers()
     }
   }
 
@@ -29,7 +30,7 @@ class Explore extends React.Component {
         <div>
           { this.props.timelineRecommendations.map((rec) => (
             <Recommendation public_id={rec.public_id} subject={rec.subject} canReact={false} key={rec.public_id} />
-          ))}
+          ))}       
         </div>
       </Layout>
     )
@@ -38,14 +39,16 @@ class Explore extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getRecommendations: bindActionCreators(getRecommendations, dispatch)
+    getRecommendations: bindActionCreators(getRecommendations, dispatch),
+    getUsers: bindActionCreators(getUsers, dispatch)
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     authenticated: state.user.authenticated,
-    timelineRecommendations: state.recommendations.timelineRecommendations
+    timelineRecommendations: state.recommendations.timelineRecommendations,
+    user: state.user
   }
 }
 
