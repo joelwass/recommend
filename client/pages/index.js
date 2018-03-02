@@ -5,6 +5,7 @@ import Recommendation from '../components/Recommendation'
 import { bindActionCreators } from 'redux'
 import { initStore } from '../store'
 import {
+  getUsers,
   getResolvedRecommendationsForUser,
   getPendingRecommendationsForUser
 } from '../store/actions'
@@ -27,17 +28,16 @@ class Index extends React.Component {
   userDash () {
     return (
       <div>
-        <h1>Welcome back User!</h1>
+        <h1>Welcome back {this.props.user.user.firstName}!</h1>
         { this.props.pendingRecommendations.map(rec => (
           <Recommendation key={rec.public_id} public_id={rec.public_id} subject={rec.subject} canReact />
         ))}
 
         { !this.state.showPrevious
           ? <div>
-            <p>Or,</p>
-            <button onClick={() => this.showPreviousRecommendations()}>see all previous recommendations</button>
+            <button className='button-main' onClick={() => this.showPreviousRecommendations()}>See All Previous Recommendations</button>
           </div>
-          : <button onClick={() => this.setState({ showPrevious: false })}>hide previous recommendations</button>}
+          : <button className='button-main' onClick={() => this.setState({ showPrevious: false })}>Hide Previous Recommendations</button>}
 
         { this.state.showPrevious && this.props.resolvedRecommendations.map(rec => (
           <Recommendation key={rec.public_id} public_id={rec.public_id} subject={rec.subject} canReact={false} />
@@ -48,8 +48,8 @@ class Index extends React.Component {
 
   splashPage () {
     return (
-      <div>
-        <h1>Welcome to our hot app. Login to experience it</h1>
+      <div className='header-main'>
+        <h1>Welcome To Recommend!</h1>
       </div>
     )
   }
@@ -76,7 +76,8 @@ class Index extends React.Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     getResolvedRecommendationsForUser: bindActionCreators(getResolvedRecommendationsForUser, dispatch),
-    getPendingRecommendationsForUser: bindActionCreators(getPendingRecommendationsForUser, dispatch)
+    getPendingRecommendationsForUser: bindActionCreators(getPendingRecommendationsForUser, dispatch),
+    getUsers: bindActionCreators(getUsers, dispatch)
   }
 }
 
@@ -85,7 +86,8 @@ const mapStateToProps = (state) => {
     authenticated: state.user.authenticated,
     userId: state.user.user.id,
     pendingRecommendations: state.user.pendingRecommendations,
-    resolvedRecommendations: state.user.resolvedRecommendations
+    resolvedRecommendations: state.user.resolvedRecommendations,
+    user: state.user
   }
 }
 
