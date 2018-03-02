@@ -98,19 +98,19 @@ class Recommend extends React.Component {
       <Layout>
         <h1>Recommend</h1>
         { !this.props.authenticated
-          ? <p>Please log in to make a recommendation</p>
-          : <form>
-            <p>Make a recommendation:</p>
-            Recipient:
-            <Select
-              onChange={this.handleUserSelect}
-              options={this.getDigestableUsers()}
-            />
-            <label htmlFor='subject'>Subject of recommendation:</label>
-            <input id='subject' type='text' onChange={(e) => this.handleInput(e, 'subject')} />
-            <label htmlFor='category'>Category of recommendation:</label>
-            <Dropdown name='category' id='category' options={this.props.categories} onChangeHandler={this.handleInput} />
-            <button onClick={this.validateInput}>Submit Recommendation</button>
+          ? <h2>Please log in to make a recommendation</h2>
+          : <form className='recommendation'>
+              <h2>Make a Recommendation</h2>
+              Recipient:
+              <Select
+                onChange={this.handleUserSelect}
+                options={this.getDigestableUsers()}
+              />
+              <label htmlFor='subject'>Subject of recommendation:</label>
+              <input id='subject' name='subject' type='text' onChange={(e) => this.handleInput(e, 'subject')} />
+              <label htmlFor='category'>Category of recommendation:</label>
+              <div className='select'><Dropdown id='category' name='category' options={this.props.categories} onChangeHandler={this.handleInput} /></div>
+              <button className='button-main' onClick={this.validateInput}>Submit Recommendation</button>
           </form>
         }
       </Layout>
