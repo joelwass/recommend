@@ -3,24 +3,33 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { updateRecommendation, deleteRecommendation } from '../store/actions'
 
+const resultText = (result) => {
+  if (result === true) return 'Liked!'
+  else if (result === false) return 'Not liked'
+  else return 'Pending'
+}
+
 const Recommendation = (props) => (
   <div>
     {props.public_id && props.subject &&
       <div className='recommendation_card'>
         {props.subject}
 
-        {props.canReact &&
-        <div className='recommendation_card__action'>
-          <button className='like' onClick={() => props.updateRecommendation({ public_id: props.public_id, result: true })}>
-            I like
-          </button>
-          <button className='no_like' onClick={() => props.updateRecommendation({ public_id: props.public_id, result: false })}>
-            I don't like
-          </button>
-          <button className='ignore' onClick={() => props.deleteRecommendation(props.public_id)}>
-            Ignore
-          </button>
-        </div>}
+        {props.canReact
+          ? <div className='recommendation_card__action'>
+            <button className='like' onClick={() => props.updateRecommendation({ public_id: props.public_id, result: true })}>
+              I like
+            </button>
+            <button className='no_like' onClick={() => props.updateRecommendation({ public_id: props.public_id, result: false })}>
+              I don't like
+            </button>
+            <button className='ignore' onClick={() => props.deleteRecommendation(props.public_id)}>
+              Ignore
+            </button>
+          </div>
+          : <div className='recommendation_card__action'>
+            <p>Result: {resultText(props.result)}</p>
+          </div>}
       </div>}
   </div>
 )

@@ -134,7 +134,9 @@ export const deleteRecommendation = (recId) => (dispatch) => {
 }
 
 export const getResolvedRecommendationsForUser = (userId) => (dispatch) => {
+  dispatch(setLoading(true))
   API.getResolvedRecommendationsForUser(userId).then((res) => {
+    dispatch(setLoading(false))
     if (res.success) dispatch({ type: actionTypes.SET_CURRENT_USER_PAST_RECOMMENDATIONS, recommendations: res.recommendations })
     else dispatch({ type: actionTypes.SET_ERROR, errorMessage: res.error })
   })

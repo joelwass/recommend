@@ -28,7 +28,7 @@ class Explore extends React.Component {
             <div>
               <h1 className='center header__sub'>Explore recent recommendations made by your friends </h1>
               { this.props.timelineRecommendations.map((rec) => (
-                <Recommendation public_id={rec.public_id} subject={rec.subject} canReact={false} key={rec.public_id} />
+                <Recommendation public_id={rec.public_id} subject={rec.subject} result={rec.result} canReact={false} key={rec.public_id} />
               ))}
             </div>
           )

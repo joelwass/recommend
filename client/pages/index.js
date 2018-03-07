@@ -14,7 +14,8 @@ class Index extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      showPrevious: false
+      showPrevious: false,
+      shouldAnimateHeader: true
     }
 
     this.showPreviousRecommendations = this.showPreviousRecommendations.bind(this)
@@ -27,12 +28,15 @@ class Index extends React.Component {
 
   userDash () {
     const previousRecommendations = this.props.resolvedRecommendations.map(rec => (
-      <Recommendation key={rec.public_id} public_id={rec.public_id} subject={rec.subject} canReact={false} />
+      <Recommendation
+        key={rec.public_id}
+        public_id={rec.public_id}
+        subject={rec.subject}
+        result={rec.result} canReact={false} />
     ))
 
     return (
       <div>
-        <h1 className='center header__main'>Welcome back {this.props.user.user.firstName}!</h1>
         <div>
           <h2 className='center header__sub'>Pending recommendations</h2>
           { this.props.pendingRecommendations.map(rec => (
@@ -66,18 +70,29 @@ class Index extends React.Component {
     )
   }
 
+  componentDidMount () {
+    // animate header in 2 seconds, animation should last half a second
+    setTimeout(() => {
+      this.setState({ shouldAnimateHeader: false })
+    }, 1500)
+  }
+
   componentWillReceiveProps (props) {
-    if (props.authenticated) props.getPendingRecommendationsForUser(props.userId)
+    if (props.authenticated && !props.pendingRecommendations.length) props.getPendingRecommendationsForUser(props.userId)
   }
 
   render () {
-    let body = null
-    if (this.props.authenticated) body = this.userDash()
-    else body = this.splashPage()
+    const header = this.props.authenticated && (
+      <h1 key='header' id='header' className={`center header__main ${!this.state.shouldAnimateHeader ? 'fadeOut' : ''}`}>
+        <p>Welcome back {this.props.user.user.firstName}!</p>
+      </h1>
+    )
+    const body = this.props.authenticated ? this.userDash() : this.splashPage()
 
     return (
       <Layout>
-        <div>
+        <div id='userDash' className={!this.state.shouldAnimateHeader ? 'slideOut' : ''}>
+          {header}
           {body}
         </div>
       </Layout>
