@@ -1,7 +1,6 @@
 import React from 'react'
 import withRedux from 'next-redux-wrapper'
 import { bindActionCreators } from 'redux'
-import Select from 'react-virtualized-select'
 import { initStore } from '../store'
 import {
   getRecommendationCategories,
@@ -51,8 +50,15 @@ class Recommend extends React.Component {
 
   getDigestableUsers () {
     return this.props.users.map(user => ({
-      label: `${user.firstName} ${user.lastName}`,
+      name: `${user.firstName} ${user.lastName}`,
       value: user.id
+    }))
+  }
+
+  getDigestableCategories () {
+    return this.props.categories.map(category => ({
+      name: category,
+      value: category
     }))
   }
 
@@ -98,19 +104,27 @@ class Recommend extends React.Component {
       <Layout>
         { !this.props.authenticated
           ? <h2 className='center header__sub'>Please log in to make a recommendation</h2>
-          : <form className='recommendation'>
-            <h2 className='center header__sub'>Make a Recommendation</h2>
-            Recipient:
-            <Select
-              onChange={this.handleUserSelect}
-              options={this.getDigestableUsers()}
-            />
-            <label htmlFor='subject'>Subject of recommendation:</label>
-            <input id='subject' name='subject' type='text' onChange={(e) => this.handleInput(e, 'subject')} />
-            <label htmlFor='category'>Category of recommendation:</label>
-            <div className='select'><Dropdown id='category' name='category' options={this.props.categories} onChangeHandler={this.handleInput} /></div>
-            <button className='button-main' onClick={this.validateInput}>Submit Recommendation</button>
-          </form>
+          : <div className=''>
+            <form className='recommendation'>
+              <h2 className='center header__sub'>Make a Recommendation</h2>
+              <div className='rec-fields'>
+                <label htmlFor='subject'>Subject of recommendation:</label>
+                <input id='subject' name='subject' type='text' onChange={(e) => this.handleInput(e, 'subject')} />
+              </div>
+              <div className='rec-fields'>
+                <label htmlFor='category'>Category of recommendation:</label>
+                <Dropdown id='category' name='category' options={this.getDigestableCategories()} onChangeHandler={this.handleInput} />
+              </div>
+              <div className='rec-fields'>
+                <label htmlFor='recipient'>Recipient:</label>
+                <Dropdown
+                  onChangeHandler={this.handleUserSelect}
+                  options={this.getDigestableUsers()}
+                />
+              </div>
+              <button className='button-main' onClick={this.validateInput}>Submit Recommendation</button>
+            </form>
+          </div>
         }
       </Layout>
     )

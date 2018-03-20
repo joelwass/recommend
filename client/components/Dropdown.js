@@ -1,14 +1,10 @@
-const parseOptions = options => options.map(option => ({ name: option, value: option }))
-
 const Dropdown = (props) => (
-  <div>
-    <select name={props.name} id={props.id} onChange={(e) => props.onChangeHandler(e, props.name)}>
-      { props.options && parseOptions(props.options).map(option => (
-        <option value={option.value} key={option.value}>{option.name}</option>
-        )
-      )}
-    </select>
-  </div>
+  <select name={props.name} id={props.id} onChange={(e) => props.onChangeHandler(e, props.name)}>
+    { props.options && props.options.map(option => (
+      <option value={option.name} key={option.value}>{option.name}</option>
+      )
+    )}
+  </select>
 )
 
 export default Dropdown

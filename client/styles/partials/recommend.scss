@@ -1,11 +1,11 @@
 .recommendation {
-    padding: 30px;
+  padding: 30px;
 
-    h2 {
-        font-size: 24px;
-        margin: 35px 0 15px 0;
-        text-align: left;
-    }
+  h2 {
+      font-size: 24px;
+      margin: 35px 0 15px 0;
+      text-align: left;
+  }
 }
 
 .recommendation_card {
@@ -41,4 +41,44 @@
 .recommendation_card__action > .no_like {
   background-color: #FF8A65;
   color: white;
+}
+
+.rec-fields {
+  margin: 10px 0;
+
+  input {
+    padding: 5px;
+    min-width: 200px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid white;
+    border-radius: 4px;
+    color: white;
+    outline: none;
+
+    &:hover {
+      outline: none;
+    }
+  }
+
+  label {
+    display: inline-block;
+    margin-right: 10px;
+    text-align: left;
+    width: 225px;
+  }
+
+  select {
+    width: 215px;
+    background: none;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    outline: none;
+  }
+}
+
+.select-dropdown {
+  margin: 0 5px;
+  display: inline-block;
 }
