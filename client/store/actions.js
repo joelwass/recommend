@@ -90,6 +90,10 @@ export const setLoading = (loading) => (dispatch) => {
   dispatch({ type: actionTypes.SET_LOADING, loading })
 }
 
+export const setShowedAnimation = () => (dispatch) => {
+  dispatch({ type: actionTypes.SET_SHOWED_WELCOME_ANIMATION })
+}
+
 // RECOMMENDATION ACTIONS
 export const getRecommendations = () => (dispatch) => {
   API.getAllRecommendations().then((res) => {

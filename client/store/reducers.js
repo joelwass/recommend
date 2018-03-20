@@ -12,7 +12,8 @@ const userInitialState = {
 
 const uiInitialState = {
   loading: false,
-  errorMessage: ''
+  errorMessage: '',
+  showedWelcomeAnimation: false
 }
 
 const recommendationsInitialState = {
@@ -46,6 +47,8 @@ export const ui = (state = uiInitialState, action) => {
       return Object.assign({}, state, { loading: action.loading })
     case actionTypes.SET_ERROR:
       return Object.assign({}, state, { errorMessage: action.errorMessage })
+    case actionTypes.SET_SHOWED_WELCOME_ANIMATION:
+      return Object.assign({}, state, { showedWelcomeAnimation: true })
     default:
       return state
   }

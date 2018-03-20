@@ -7,15 +7,15 @@ import { initStore } from '../store'
 import {
   getUsers,
   getResolvedRecommendationsForUser,
-  getPendingRecommendationsForUser
+  getPendingRecommendationsForUser,
+  setShowedAnimation
 } from '../store/actions'
 
 class Index extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      showPrevious: false,
-      shouldAnimateHeader: true
+      showPrevious: false
     }
 
     this.showPreviousRecommendations = this.showPreviousRecommendations.bind(this)
@@ -73,7 +73,7 @@ class Index extends React.Component {
   componentDidMount () {
     // animate header in 2 seconds, animation should last half a second
     setTimeout(() => {
-      this.setState({ shouldAnimateHeader: false })
+      this.props.setShowedAnimation()
     }, 1500)
   }
 
@@ -83,15 +83,16 @@ class Index extends React.Component {
 
   render () {
     const header = this.props.authenticated && (
-      <h1 key='header' id='header' className={`center header__main ${!this.state.shouldAnimateHeader ? 'fadeOut' : ''}`}>
+      <h1 key='header' id='header' className={`center header__main ${this.props.showedWelcomeAnimation ? 'fadeOut' : ''}`}>
         <p>Welcome back {this.props.user.user.firstName}!</p>
       </h1>
     )
+
     const body = this.props.authenticated ? this.userDash() : this.splashPage()
 
     return (
       <Layout>
-        <div id='userDash' className={!this.state.shouldAnimateHeader ? 'slideOut' : ''}>
+        <div id='userDash' className={this.props.showedWelcomeAnimation ? 'slideOut' : ''}>
           {header}
           {body}
         </div>
@@ -104,7 +105,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getResolvedRecommendationsForUser: bindActionCreators(getResolvedRecommendationsForUser, dispatch),
     getPendingRecommendationsForUser: bindActionCreators(getPendingRecommendationsForUser, dispatch),
-    getUsers: bindActionCreators(getUsers, dispatch)
+    getUsers: bindActionCreators(getUsers, dispatch),
+    setShowedAnimation: bindActionCreators(setShowedAnimation, dispatch)
   }
 }
 
@@ -114,6 +116,7 @@ const mapStateToProps = (state) => {
     userId: state.user.user.id,
     pendingRecommendations: state.user.pendingRecommendations,
     resolvedRecommendations: state.user.resolvedRecommendations,
+    showedWelcomeAnimation: state.ui.showedWelcomeAnimation,
     user: state.user
   }
 }
